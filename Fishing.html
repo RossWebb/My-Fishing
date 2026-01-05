@@ -1,0 +1,1345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Fishing Tides & Fish Guide</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root {
+      --bg: #020617;
+      --fg: #e5e7eb;
+      --accent: #22c55e;
+      --accent-soft: rgba(34, 197, 94, 0.15);
+      --danger: #ef4444;
+      --card: #020617;
+      --muted: #9ca3af;
+      --border: #1f2937;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+    }
+    body {
+      background: radial-gradient(circle at top, #1e293b 0, #020617 55%);
+      color: var(--fg);
+      min-height: 100vh;
+      padding: 16px;
+    }
+    h1 {
+      font-size: 1.4rem;
+      margin-bottom: 8px;
+    }
+    h2 {
+      font-size: 1.1rem;
+      margin-top: 20px;
+      margin-bottom: 8px;
+    }
+    p {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+    .card {
+      background: rgba(15, 23, 42, 0.9);
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      padding: 14px;
+      margin-bottom: 14px;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+      backdrop-filter: blur(14px);
+    }
+    .row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+    .row > * {
+      flex: 1;
+    }
+    label {
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-bottom: 4px;
+      display: block;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 8px 10px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--fg);
+      font-size: 0.9rem;
+      outline: none;
+    }
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.3);
+    }
+    button {
+      border-radius: 999px;
+      border: none;
+      padding: 8px 14px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: transform 0.08s ease, box-shadow 0.1s ease,
+        background 0.15s ease;
+      white-space: nowrap;
+    }
+    button:active {
+      transform: translateY(1px);
+      box-shadow: none;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #16a34a, #22c55e);
+      color: #0b1120;
+      box-shadow: 0 10px 25px rgba(34, 197, 94, 0.35);
+    }
+    .btn-ghost {
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--fg);
+      border: 1px solid var(--border);
+    }
+    .btn-danger {
+      background: #7f1d1d;
+      color: #fee2e2;
+    }
+    .btn-sm {
+      padding: 6px 10px;
+      font-size: 0.78rem;
+    }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      color: #e5e7eb;
+      background: radial-gradient(circle at top left, #1e293b, #020617);
+      margin-bottom: 6px;
+    }
+    .pill.green {
+      border-color: rgba(34, 197, 94, 0.45);
+      color: #bbf7d0;
+      background: radial-gradient(circle at top left, #166534, #022c22);
+    }
+    .pill.blue {
+      border-color: rgba(56, 189, 248, 0.45);
+      color: #e0f2fe;
+      background: radial-gradient(circle at top left, #0ea5e9, #0b1120);
+    }
+    .pill.red {
+      border-color: rgba(248, 113, 113, 0.5);
+      color: #fee2e2;
+      background: radial-gradient(circle at top left, #b91c1c, #020617);
+    }
+    .tiny-label {
+      font-size: 0.7rem;
+      color: var(--muted);
+      margin-bottom: 2px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+    .tide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+      gap: 6px;
+    }
+    .tide-time {
+      font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo,
+        Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 0.86rem;
+    }
+    .tide-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+      margin-top: 4px;
+    }
+    .tide-table th,
+    .tide-table td {
+      padding: 6px 4px;
+      text-align: left;
+      border-bottom: 1px solid rgba(31, 41, 55, 0.85);
+    }
+    .tide-table th {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: var(--muted);
+    }
+    .tide-now-row {
+      background: linear-gradient(
+        90deg,
+        rgba(34, 197, 94, 0.15),
+        rgba(15, 23, 42, 0.95)
+      );
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      font-size: 0.7rem;
+      padding: 2px 7px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+    }
+    .badge.high {
+      border-color: rgba(34, 197, 94, 0.8);
+      color: #bbf7d0;
+    }
+    .badge.low {
+      border-color: rgba(59, 130, 246, 0.8);
+      color: #bfdbfe;
+    }
+    .badge.now {
+      border-color: rgba(251, 191, 36, 0.9);
+      color: #fef3c7;
+    }
+    .warning {
+      margin-top: 8px;
+      padding: 6px 8px;
+      border-radius: 10px;
+      border: 1px solid rgba(248, 113, 113, 0.7);
+      background: radial-gradient(circle at left, #450a0a, #020617);
+      color: #fecaca;
+      font-size: 0.78rem;
+      line-height: 1.35;
+    }
+    .warning strong {
+      color: #fecaca;
+    }
+    .tabs {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 4px;
+      margin-top: 6px;
+      margin-bottom: 6px;
+    }
+    .tab {
+      text-align: center;
+      padding: 6px 0;
+      font-size: 0.78rem;
+      border-radius: 999px;
+      border: 1px solid rgba(31, 41, 55, 0.95);
+      cursor: pointer;
+      background: rgba(15, 23, 42, 0.8);
+      color: var(--muted);
+      user-select: none;
+    }
+    .tab.active {
+      border-color: rgba(34, 197, 94, 0.9);
+      background: radial-gradient(circle at top, #16a34a, #022c22);
+      color: #e5f9ed;
+      font-weight: 500;
+    }
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 4px;
+      margin-bottom: 4px;
+    }
+    .chip {
+      font-size: 0.7rem;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      color: #e5e7eb;
+    }
+    .section-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+    .section-title span {
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+    .divider {
+      height: 1px;
+      background: radial-gradient(
+        circle at center,
+        rgba(148, 163, 184, 0.4),
+        transparent
+      );
+      margin: 8px 0;
+    }
+    .log-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 6px;
+    }
+    .log-item {
+      background: rgba(15, 23, 42, 0.9);
+      border-radius: 10px;
+      border: 1px solid rgba(31, 41, 55, 0.95);
+      padding: 6px;
+      font-size: 0.8rem;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .log-item img {
+      width: 100%;
+      border-radius: 8px;
+      margin-top: 4px;
+      object-fit: cover;
+      max-height: 120px;
+    }
+    .muted {
+      color: var(--muted);
+      font-size: 0.8rem;
+    }
+    .tag {
+      font-size: 0.7rem;
+      padding: 2px 7px;
+      border-radius: 999px;
+      border: 1px solid rgba(75, 85, 99, 0.9);
+      color: #e5e7eb;
+    }
+    .tag.green {
+      border-color: rgba(34, 197, 94, 0.8);
+      color: #bbf7d0;
+    }
+    .tag.blue {
+      border-color: rgba(59, 130, 246, 0.8);
+      color: #bfdbfe;
+    }
+    .tag.night {
+      border-color: rgba(129, 140, 248, 0.9);
+      color: #c7d2fe;
+    }
+    .tag.day {
+      border-color: rgba(251, 191, 36, 0.9);
+      color: #fef3c7;
+    }
+    .hidden {
+      display: none !important;
+    }
+    .small {
+      font-size: 0.78rem;
+    }
+    .textarea-small {
+      min-height: 50px;
+      resize: vertical;
+    }
+    @media (min-width: 768px) {
+      body {
+        max-width: 640px;
+        margin: 0 auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="pill green">
+      <span>Fisher’s Tides & Fish Guide</span>
+    </div>
+    <h1>Today’s Tides & Local Fishing</h1>
+    <p>Single-page tool for planning tides, fish targets, and logging catches.</p>
+  </div>
+
+  <!-- Location + Tide controls -->
+  <div class="card">
+    <div class="section-title">
+      <div>
+        <div class="tiny-label">Step 1</div>
+        <h2>Pick Tide Location</h2>
+      </div>
+      <button id="btnUseGps" class="btn-ghost btn-sm" type="button">
+        📍 Use GPS
+      </button>
+    </div>
+
+    <div class="row">
+      <div>
+        <label for="manualLocation">Manual location (port / creek / GPS)</label>
+        <input
+          id="manualLocation"
+          type="text"
+          placeholder="e.g. Fremantle, WA or -32.06, 115.74"
+        />
+      </div>
+    </div>
+
+    <div class="row">
+      <div>
+        <label for="stormglassKey">Tide API key (StormGlass)</label>
+        <input
+          id="stormglassKey"
+          type="password"
+          placeholder="3e89dcf4-ea0c-11f0-a8f4-0242ac130003-3e89dd58-ea0c-11f0-a8f4-0242ac130003"
+        />
+      </div>
+    </div>
+
+    <button id="btnLoadTides" class="btn-primary" type="button">
+      ⚓ Load today’s tide chart
+    </button>
+
+    <p class="small muted" style="margin-top: 4px;">
+      Uses StormGlass Global Tide endpoint for today’s levels and extremes.
+    </p>
+  </div>
+
+  <!-- Tide chart -->
+  <div id="tideCard" class="card hidden">
+    <div class="tide-header">
+      <div>
+        <div class="tiny-label">Today’s tide</div>
+        <h2 id="tideLocationLabel">Location</h2>
+      </div>
+      <div style="text-align: right;">
+        <div class="tiny-label">Date</div>
+        <div class="tide-time" id="tideDateLabel"></div>
+        <div class="tide-time" id="tideNowTime"></div>
+      </div>
+    </div>
+
+    <table class="tide-table" aria-label="Tide levels and extremes">
+      <thead>
+        <tr>
+          <th style="width: 40%;">Time</th>
+          <th style="width: 30%;">Height (m)</th>
+          <th style="width: 30%;">Note</th>
+        </tr>
+      </thead>
+      <tbody id="tideTableBody"></tbody>
+    </table>
+
+    <div class="warning">
+      <strong>Warning:</strong> Predictions are approximate. Local wind, barometric pressure, river
+      flow and short-term anomalies can shift levels and times. Always watch
+      the water, carry safety gear, and allow extra margin around low-launch
+      ramps and shallow bars. Tide data is not a navigation authority.
+    </div>
+  </div>
+
+  <!-- Fish intel prompt -->
+  <div id="fishPromptCard" class="card hidden">
+    <div class="section-title">
+      <div>
+        <div class="tiny-label">Step 2</div>
+        <h2>Local Fish Intel</h2>
+      </div>
+    </div>
+    <p class="small">
+      Optional AI guidance for fish species likely to be on the bite in this
+      area and season, with short clues for presenting baits and lures.
+    </p>
+
+    <div class="row">
+      <div>
+        <label for="geminiKey">Gemini API key</label>
+        <input
+          id="geminiKey"
+          type="password"
+          placeholder="AIzaSyAsb908zo4sRFj9eK1Ms-b86Cf6QyaPpI0"
+        />
+      </div>
+    </div>
+
+    <div class="row">
+      <div>
+        <label>Fishing time</label>
+        <div class="chip-row">
+          <button
+            type="button"
+            class="tab"
+            data-timegroup="day"
+            onclick="setFishTime('day')"
+          >
+            Day
+          </button>
+          <button
+            type="button"
+            class="tab"
+            data-timegroup="night"
+            onclick="setFishTime('night')"
+          >
+            Night
+          </button>
+        </div>
+      </div>
+      <div>
+        <label>Position</label>
+        <div class="chip-row">
+          <button
+            type="button"
+            class="tab"
+            data-position="shore"
+            onclick="setFishPosition('shore')"
+          >
+            Shore / bank
+          </button>
+          <button
+            type="button"
+            class="tab"
+            data-position="boat"
+            onclick="setFishPosition('boat')"
+          >
+            Boat
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <label for="exactSpot">Exact fishing spot (optional)</label>
+    <input
+      id="exactSpot"
+      type="text"
+      placeholder="Jetty, reef, sand flat, rock wall, river bend..."
+    />
+
+    <label for="targetNotes" style="margin-top: 6px;">Target species / notes (optional)</label>
+    <textarea
+      id="targetNotes"
+      class="textarea-small"
+      placeholder="e.g. chasing tailor and mulloway in winter; strong current on making tide"
+    ></textarea>
+
+    <button
+      id="btnGetFishIntel"
+      class="btn-primary"
+      style="margin-top: 8px;"
+      type="button"
+    >
+      🎣 Get fish info & tactics
+    </button>
+
+    <p class="small muted" style="margin-top: 4px;">
+      Runs a short prompt into Gemini 2.5, split into day/night and shore/boat
+      sections with seasonal tactics.
+    </p>
+  </div>
+
+  <!-- Fish intel output -->
+  <div id="fishIntelCard" class="card hidden">
+    <div class="section-title">
+      <div>
+        <div class="tiny-label">AI suggestion</div>
+        <h2>Fish & Tactics</h2>
+      </div>
+      <span id="fishIntelContext" class="small muted"></span>
+    </div>
+
+    <div class="tabs">
+      <div
+        class="tab active"
+        data-fishpane-tab="day-shore"
+        onclick="showFishPane('day-shore')"
+      >
+        Day shore
+      </div>
+      <div
+        class="tab"
+        data-fishpane-tab="night-shore"
+        onclick="showFishPane('night-shore')"
+      >
+        Night shore
+      </div>
+      <div
+        class="tab"
+        data-fishpane-tab="day-boat"
+        onclick="showFishPane('day-boat')"
+      >
+        Day boat
+      </div>
+      <div
+        class="tab"
+        data-fishpane-tab="night-boat"
+        onclick="showFishPane('night-boat')"
+      >
+        Night boat
+      </div>
+    </div>
+
+    <div id="pane-day-shore" class="small"></div>
+    <div id="pane-night-shore" class="small hidden"></div>
+    <div id="pane-day-boat" class="small hidden"></div>
+    <div id="pane-night-boat" class="small hidden"></div>
+
+    <p class="small muted" style="margin-top: 6px;">
+      Use this as a starting point only. Local regulations and size/possession
+      limits always apply.
+    </p>
+  </div>
+
+  <!-- Fish ID -->
+  <div class="card">
+    <div class="section-title">
+      <div>
+        <div class="tiny-label">Fish identification</div>
+        <h2>Photo ID helper</h2>
+      </div>
+    </div>
+    <p class="small">
+      Use AI to help identify a fish from a photo and short description. This
+      does not replace a regulation ID guide.
+    </p>
+
+    <div class="row">
+      <div>
+        <label for="fishPhotoInput">Fish photo</label>
+        <input
+          id="fishPhotoInput"
+          type="file"
+          accept="image/*"
+          capture="environment"
+        />
+      </div>
+    </div>
+    <label for="fishIdNotes" style="margin-top: 6px;">Visible features</label>
+    <textarea
+      id="fishIdNotes"
+      class="textarea-small"
+      placeholder="Colour, fin shape, spots/stripes, approximate length, depth, bottom type..."
+    ></textarea>
+
+    <button
+      id="btnIdentifyFish"
+      class="btn-primary"
+      style="margin-top: 8px;"
+      type="button"
+    >
+      🔎 Identify fish
+    </button>
+
+    <div id="fishIdResult" class="small" style="margin-top: 8px;"></div>
+  </div>
+
+  <!-- Catch log -->
+  <div class="card">
+    <div class="section-title">
+      <div>
+        <div class="tiny-label">Catch log</div>
+        <h2>Log a catch</h2>
+      </div>
+      <button
+        type="button"
+        class="btn-ghost btn-sm"
+        onclick="clearCatchLog()"
+      >
+        🧹 Clear log
+      </button>
+    </div>
+
+    <div class="row">
+      <div>
+        <label for="catchSpecies">Species</label>
+        <input id="catchSpecies" type="text" placeholder="e.g. snapper" />
+      </div>
+      <div>
+        <label for="catchLength">Length (cm)</label>
+        <input
+          id="catchLength"
+          type="number"
+          min="0"
+          step="0.5"
+          placeholder="e.g. 45"
+        />
+      </div>
+    </div>
+
+    <div class="row">
+      <div>
+        <label for="catchMethod">Method</label>
+        <input
+          id="catchMethod"
+          type="text"
+          placeholder="e.g. 5” jerkshad, mulie on paternoster"
+        />
+      </div>
+    </div>
+
+    <div class="row">
+      <div>
+        <label for="catchSpot">Spot (optional)</label>
+        <input
+          id="catchSpot"
+          type="text"
+          placeholder="Jetty, reef mark, channel edge etc."
+        />
+      </div>
+    </div>
+
+    <div class="row">
+      <div>
+        <label for="catchPhoto">Catch photo</label>
+        <input
+          id="catchPhoto"
+          type="file"
+          accept="image/*"
+          capture="environment"
+        />
+      </div>
+    </div>
+
+    <button
+      id="btnSaveCatch"
+      class="btn-primary"
+      style="margin-top: 8px;"
+      type="button"
+    >
+      📓 Save catch to log
+    </button>
+
+    <p class="small muted" style="margin-top: 4px;">
+      Catch log entries are stored locally in this browser only and can be
+      cleared at any time.
+    </p>
+
+    <div class="divider"></div>
+    <div class="section-title">
+      <span class="tiny-label">Recent catches</span>
+      <span id="catchCountLabel" class="small muted">0 saved</span>
+    </div>
+    <div id="catchLogList" class="log-grid"></div>
+  </div>
+
+  <script>
+    const STORMGLASS_TIDE_URL =
+      "https://api.stormglass.io/v2/tide/extremes/point"; // [web:9]
+    const STORMGLASS_LEVEL_URL =
+      "https://api.stormglass.io/v2/tide/sea-level/point"; // [web:9]
+    const GEMINI_TEXT_URL =
+      "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent"; // [web:17]
+    const GEMINI_MULTI_URL =
+      "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent"; // [web:17]
+
+    const tideCard = document.getElementById("tideCard");
+    const tideTableBody = document.getElementById("tideTableBody");
+    const tideLocationLabel = document.getElementById("tideLocationLabel");
+    const tideDateLabel = document.getElementById("tideDateLabel");
+    const tideNowTime = document.getElementById("tideNowTime");
+    const fishPromptCard = document.getElementById("fishPromptCard");
+    const fishIntelCard = document.getElementById("fishIntelCard");
+    const fishIntelContext = document.getElementById("fishIntelContext");
+
+    let fishTime = "day";
+    let fishPosition = "shore";
+
+    function setFishTime(v) {
+      fishTime = v;
+      document
+        .querySelectorAll("[data-timegroup]")
+        .forEach((el) => el.classList.remove("active"));
+      document
+        .querySelectorAll(`[data-timegroup="${v}"]`)
+        .forEach((el) => el.classList.add("active"));
+    }
+    function setFishPosition(v) {
+      fishPosition = v;
+      document
+        .querySelectorAll("[data-position]")
+        .forEach((el) => el.classList.remove("active"));
+      document
+        .querySelectorAll(`[data-position="${v}"]`)
+        .forEach((el) => el.classList.add("active"));
+    }
+
+    function showFishPane(key) {
+      const panes = ["day-shore", "night-shore", "day-boat", "night-boat"];
+      panes.forEach((p) => {
+        const pane = document.getElementById("pane-" + p);
+        if (pane) pane.classList.toggle("hidden", p !== key);
+      });
+      document
+        .querySelectorAll("[data-fishpane-tab]")
+        .forEach((tab) =>
+          tab.classList.toggle(
+            "active",
+            tab.getAttribute("data-fishpane-tab") === key
+          )
+        );
+    }
+
+    function parseLatLngFromText(text) {
+      if (!text) return null;
+      const parts = text.split(",");
+      if (parts.length === 2) {
+        const lat = parseFloat(parts[0].trim());
+        const lng = parseFloat(parts[1].trim());
+        if (Number.isFinite(lat) && Number.isFinite(lng)) {
+          return { lat, lng };
+        }
+      }
+      return null;
+    }
+
+    function formatTime(dt) {
+      const hh = dt.getHours().toString().padStart(2, "0");
+      const mm = dt.getMinutes().toString().padStart(2, "0");
+      return `${hh}:${mm}`;
+    }
+
+    function formatDateLocal(dt) {
+      return dt.toLocaleDateString(undefined, {
+        weekday: "short",
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+      });
+    }
+
+    function findNowHeight(levels, now) {
+      if (!Array.isArray(levels) || levels.length === 0) return null;
+      levels.sort((a, b) => a.time - b.time);
+      let prev = levels[0];
+      for (let i = 1; i < levels.length; i++) {
+        const cur = levels[i];
+        if (now >= prev.time && now <= cur.time) {
+          const span = cur.time - prev.time;
+          const pos = span > 0 ? (now - prev.time) / span : 0;
+          const height = prev.height + (cur.height - prev.height) * pos;
+          return { time: now, height, note: "Approx. level now" };
+        }
+        prev = cur;
+      }
+      return { time: now, height: prev.height, note: "Approx. level now" };
+    }
+
+		async function loadTides() {
+		  const key = document.getElementById("stormglassKey").value.trim();
+		  const locInput = document.getElementById("manualLocation").value.trim();
+		  
+		  // Example coordinates (Sydney). You can replace these with GPS logic.
+		  let lat = -33.8688, lng = 151.2093; 
+
+		  if (!key) {
+			alert("Please enter your StormGlass API Key.");
+			return;
+		  }
+
+		  try {
+			// 1. Fetch Tide Extremes (Highs and Lows)
+			const extUrl = `https://api.stormglass.io/v2/tide/extremes/point?lat=${lat}&lng=${lng}`;
+			const extRes = await fetch(extUrl, { headers: { Authorization: key } });
+			const extJson = await extRes.json();
+
+			// 2. Fetch Sea Level (To calculate the "Now" water level)
+			const lvlUrl = `https://api.stormglass.io/v2/tide/sea-level/point?lat=${lat}&lng=${lng}`;
+			const lvlRes = await fetch(lvlUrl, { headers: { Authorization: key } });
+			const lvlJson = await lvlRes.json();
+
+			// Pass the data to your render function
+			renderTideTable(extJson.data, lvlJson.data);
+		  } catch (err) {
+			console.error("StormGlass error:", err);
+			alert("Failed to load tides. You may have hit your 10-call daily limit.");
+		  }
+		}
+      if (!latLng) {
+        alert("Enter location as 'lat,lng' or allow GPS.");
+        return;
+      }
+
+      const now = new Date();
+      const start = new Date(
+        now.getFullYear(),
+        now.getMonth(),
+        now.getDate(),
+        0,
+        0,
+        0
+      );
+      const end = new Date(
+        now.getFullYear(),
+        now.getMonth(),
+        now.getDate(),
+        23,
+        59,
+        59
+      );
+      const params = new URLSearchParams({
+        lat: latLng.lat,
+        lng: latLng.lng,
+        start: Math.floor(start.getTime() / 1000),
+        end: Math.floor(end.getTime() / 1000),
+      });
+
+      tideTableBody.innerHTML =
+        '<tr><td colspan="3">Loading tide data...</td></tr>';
+
+      try {
+        const extremesResp = await fetch(
+          `${STORMGLASS_TIDE_URL}?${params.toString()}`,
+          {
+            headers: {
+              Authorization: key,
+            },
+          }
+        );
+        if (!extremesResp.ok) throw new Error("Tide extremes request failed");
+        const extremesJson = await extremesResp.json(); // [web:9]
+        const extrema = Array.isArray(extremesJson.data)
+          ? extremesJson.data
+          : [];
+
+        const lvlResp = await fetch(
+          `${STORMGLASS_LEVEL_URL}?${params.toString()}`,
+          {
+            headers: {
+              Authorization: key,
+            },
+          }
+        );
+        if (!lvlResp.ok) throw new Error("Tide level request failed");
+        const lvlJson = await lvlResp.json(); // [web:9]
+        const levelsRaw = Array.isArray(lvlJson.data) ? lvlJson.data : [];
+
+        const levels = levelsRaw.map((p) => ({
+          time: new Date(p.time),
+          height: p.seaLevel,
+        }));
+
+        tideTableBody.innerHTML = "";
+
+        const rows = [];
+        extrema.forEach((ex) => {
+          const t = new Date(ex.time);
+          const kind = ex.type === "high" ? "High" : "Low";
+          rows.push({
+            type: ex.type,
+            time: t,
+            height: ex.height,
+            note: `${kind} tide`,
+          });
+        });
+
+        const nowHeight = findNowHeight(levels, now);
+        if (nowHeight) {
+          rows.push({
+            type: "now",
+            time: nowHeight.time,
+            height: nowHeight.height,
+            note: "Approx. level now",
+          });
+        }
+
+        rows.sort((a, b) => a.time - b.time);
+
+		// Replace the existing rows.forEach block with this:
+		rows.forEach((r) => {
+		  const tr = document.createElement("tr");
+		  if (r.type === "now") tr.classList.add("tide-now-row");
+
+		  const timeTd = document.createElement("td");
+		  const heightTd = document.createElement("td");
+		  const noteTd = document.createElement("td");
+
+		  // --- LOCAL TIME HANDLING START ---
+		  // This converts the UTC date from the API to your device's local time format
+		  const localTimeDisplay = r.time.toLocaleTimeString([], { 
+			hour: '2-digit', 
+			minute: '2-digit' 
+		  });
+		  timeTd.textContent = localTimeDisplay;
+		  // --- LOCAL TIME HANDLING END ---
+
+		  heightTd.textContent = r.height != null ? r.height.toFixed(2) : "—";
+
+		  const badge = document.createElement("span");
+		  badge.classList.add("badge");
+		  if (r.type === "high") badge.classList.add("high");
+		  if (r.type === "low") badge.classList.add("low");
+		  if (r.type === "now") badge.classList.add("now");
+		  badge.textContent = r.type === "high" ? "High" : r.type === "low" ? "Low" : "Now";
+		  
+		  noteTd.appendChild(badge);
+		  const txt = document.createElement("span");
+		  txt.textContent = " " + r.note;
+		  noteTd.appendChild(txt);
+
+		  tr.appendChild(timeTd);
+		  tr.appendChild(heightTd);
+		  tr.appendChild(noteTd);
+		  tideTableBody.appendChild(tr);
+		});
+
+        tideCard.classList.remove("hidden");
+        fishPromptCard.classList.remove("hidden");
+        tideLocationLabel.textContent =
+          manualLocation || `${latLng.lat.toFixed(3)}, ${latLng.lng.toFixed(
+            3
+          )}`;
+        tideDateLabel.textContent = formatDateLocal(now);
+        tideNowTime.textContent = `Now: ${formatTime(now)}`;
+      } catch (err) {
+        console.error(err);
+        tideTableBody.innerHTML =
+          '<tr><td colspan="3">Could not load tide data. Check API key, network, or location format.</td></tr>';
+      }
+    }
+
+    async function callGemini(apiKey, contentParts) {
+      const body = {
+        contents: [
+          {
+            parts: contentParts,
+          },
+        ],
+      };
+      const res = await fetch(GEMINI_TEXT_URL + `?key=${encodeURIComponent(apiKey)}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
+      });
+      if (!res.ok) {
+        throw new Error("Gemini request failed");
+      }
+      const data = await res.json(); // [web:17]
+      const cand = data.candidates && data.candidates[0];
+      const part = cand && cand.content && cand.content.parts && cand.content.parts[0];
+      return part && part.text ? part.text : "";
+    }
+
+    document.getElementById("btnUseGps").addEventListener("click", () => {
+      if (!navigator.geolocation) {
+        alert("Geolocation not supported by this device.");
+        return;
+      }
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          document.getElementById(
+            "manualLocation"
+          ).value = `${pos.coords.latitude.toFixed(
+            5
+          )}, ${pos.coords.longitude.toFixed(5)}`;
+        },
+        () => {
+          alert("Could not get GPS position.");
+        },
+        { enableHighAccuracy: true, timeout: 10000 }
+      );
+    });
+
+    document
+      .getElementById("btnLoadTides")
+      .addEventListener("click", () => loadTides());
+
+    document
+      .getElementById("btnGetFishIntel")
+      .addEventListener("click", async () => {
+        const apiKey = document.getElementById("geminiKey").value.trim();
+        if (!apiKey) {
+          alert("Enter your Gemini API key first.");
+          return;
+        }
+        const locationRaw = document
+          .getElementById("manualLocation")
+          .value.trim();
+        const exactSpot = document.getElementById("exactSpot").value.trim();
+        const targetNotes = document
+          .getElementById("targetNotes")
+          .value.trim();
+
+        const now = new Date();
+        const month = now.toLocaleString(undefined, { month: "short" });
+        const seasonHint = `Month: ${month}, hemisphere: Southern (assume WA / AU coastal conditions).`;
+
+        const baseContext =
+          "You are an experienced local saltwater fishing guide. Write tight, bullet-style tips for likely target species, depth bands and bait/lure presentations. Avoid tourist chat. Focus on practical, season-aware information. Keep each bullet under 25 words.";
+        const scope = `Location text: "${locationRaw || "unknown"}". Exact spot: "${
+          exactSpot || "not specified"
+        }". ${seasonHint}`;
+        const layout =
+          "Return four clearly separated sections, with headings exactly: 'DAY SHORE', 'NIGHT SHORE', 'DAY BOAT', 'NIGHT BOAT'. Under each heading, list 4–7 short bullets.";
+        const regs =
+          "Do not invent legal sizes. Instead say: 'Check current local size/bag limits before keeping fish.' once per section.";
+
+        const prompt = `${baseContext}
+
+${scope}
+
+${layout}
+
+${regs}`;
+
+        try {
+          const text = await callGemini(apiKey, [{ text: prompt }]);
+          const sections = {
+            "DAY SHORE": "pane-day-shore",
+            "NIGHT SHORE": "pane-night-shore",
+            "DAY BOAT": "pane-day-boat",
+            "NIGHT BOAT": "pane-night-boat",
+          };
+          Object.values(sections).forEach((id) => {
+            const el = document.getElementById(id);
+            if (el) el.textContent = "";
+          });
+
+          let current = null;
+          text.split("
+").forEach((line) => {
+            const trimmed = line.trim();
+            if (!trimmed) return;
+            const upper = trimmed.toUpperCase();
+            if (sections[upper]) {
+              current = upper;
+              const el = document.getElementById(sections[current]);
+              if (el) {
+                el.innerHTML = `<div class="pill blue">${current}</div>`;
+              }
+            } else if (current && trimmed.startsWith("-")) {
+              const el = document.getElementById(sections[current]);
+              if (el) {
+                const li = document.createElement("div");
+                li.textContent = trimmed.replace(/^-s*/, "• ");
+                el.appendChild(li);
+              }
+            }
+          });
+
+          fishIntelCard.classList.remove("hidden");
+          fishIntelContext.textContent = `${fishTime} / ${fishPosition}`;
+          showFishPane(`${fishTime}-${fishPosition}`);
+        } catch (err) {
+          console.error(err);
+          alert("Could not fetch fish intel from Gemini.");
+        }
+      });
+
+    document
+      .getElementById("btnIdentifyFish")
+      .addEventListener("click", async () => {
+        const apiKey = document.getElementById("geminiKey").value.trim();
+        if (!apiKey) {
+          alert("Enter your Gemini API key first (same as above).");
+          return;
+        }
+        const fileInput = document.getElementById("fishPhotoInput");
+        const file = fileInput.files && fileInput.files[0];
+        const notes = document.getElementById("fishIdNotes").value.trim();
+        if (!file) {
+          alert("Select a fish photo first.");
+          return;
+        }
+
+        const resultEl = document.getElementById("fishIdResult");
+        resultEl.textContent = "Analysing photo...";
+
+        try {
+          const bytes = await file.arrayBuffer();
+          const base64 = btoa(
+            String.fromCharCode(...new Uint8Array(bytes))
+          );
+          const prompt = `Identify the most likely fish species and close alternatives. Focus on Australian coastal species first if plausible. Provide:
+- 1–2 candidate common names
+- Short ID markers
+- Simple risk note (spines, teeth, ciguatera risk, protected status).
+
+Angler notes: "${notes}"`;
+
+          const body = {
+            contents: [
+              {
+                parts: [
+                  { text: prompt },
+                  {
+                    inlineData: {
+                      data: base64,
+                      mimeType: file.type || "image/jpeg",
+                    },
+                  },
+                ],
+              },
+            ],
+          };
+
+          const res = await fetch(
+            GEMINI_MULTI_URL + `?key=${encodeURIComponent(apiKey)}`,
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(body),
+            }
+          );
+          if (!res.ok) throw new Error("Gemini image request failed");
+          const data = await res.json(); // [web:17]
+          const cand = data.candidates && data.candidates[0];
+          const part =
+            cand && cand.content && cand.content.parts && cand.content.parts[0];
+          resultEl.textContent =
+            (part && part.text) ||
+            "No useful identification returned. Try a clearer side-on photo.";
+        } catch (err) {
+          console.error(err);
+          resultEl.textContent =
+            "Could not identify fish from this photo. Check API key, network and file size.";
+        }
+      });
+
+    const CATCH_KEY = "fishing-tide-catch-log-v1";
+
+    function loadCatchLog() {
+      try {
+        const raw = localStorage.getItem(CATCH_KEY);
+        if (!raw) return [];
+        const parsed = JSON.parse(raw);
+        if (!Array.isArray(parsed)) return [];
+        return parsed;
+      } catch {
+        return [];
+      }
+    }
+
+    function saveCatchLog(entries) {
+      try {
+        localStorage.setItem(CATCH_KEY, JSON.stringify(entries));
+      } catch (e) {
+        console.error("Failed to write catch log", e);
+      }
+    }
+
+    function renderCatchLog() {
+      const list = document.getElementById("catchLogList");
+      const entries = loadCatchLog();
+      list.innerHTML = "";
+      document.getElementById(
+        "catchCountLabel"
+      ).textContent = `${entries.length} saved`;
+      if (!entries.length) {
+        const empty = document.createElement("div");
+        empty.className = "small muted";
+        empty.textContent =
+          "No catches saved yet. Add each fish you keep or release with a quick note.";
+        list.appendChild(empty);
+        return;
+      }
+      entries
+        .slice()
+        .reverse()
+        .forEach((c) => {
+          const item = document.createElement("div");
+          item.className = "log-item";
+          const header = document.createElement("div");
+          header.innerHTML = `<strong>${c.species || "Unknown"}</strong> ${
+            c.length ? `• ${c.length} cm` : ""
+          }`;
+          const meta = document.createElement("div");
+          meta.className = "small muted";
+          const when = new Date(c.time);
+          meta.textContent = `${formatDateLocal(when)} • ${formatTime(when)}`;
+          const method = document.createElement("div");
+          method.className = "small";
+          method.textContent = c.method || "";
+          const tags = document.createElement("div");
+          tags.className = "chip-row";
+          if (c.spot) {
+            const t = document.createElement("span");
+            t.className = "tag blue";
+            t.textContent = c.spot;
+            tags.appendChild(t);
+          }
+          if (c.photo) {
+            const t = document.createElement("span");
+            t.className = "tag green";
+            t.textContent = "Photo";
+            tags.appendChild(t);
+          }
+          item.appendChild(header);
+          item.appendChild(meta);
+          if (method.textContent) item.appendChild(method);
+          if (tags.childNodes.length) item.appendChild(tags);
+          if (c.photo) {
+            const img = document.createElement("img");
+            img.src = c.photo;
+            img.alt = c.species || "Catch photo";
+            item.appendChild(img);
+          }
+          list.appendChild(item);
+        });
+    }
+
+    async function handleSaveCatch() {
+      const species = document
+        .getElementById("catchSpecies")
+        .value.trim();
+      const length = document
+        .getElementById("catchLength")
+        .value.trim();
+      const method = document
+        .getElementById("catchMethod")
+        .value.trim();
+      const spot = document.getElementById("catchSpot").value.trim();
+      const photoInput = document.getElementById("catchPhoto");
+      const file = photoInput.files && photoInput.files[0];
+
+      let photoDataUrl = null;
+      if (file) {
+        photoDataUrl = await new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = (e) => resolve(e.target.result);
+          reader.onerror = (e) => reject(e);
+          reader.readAsDataURL(file);
+        });
+      }
+
+      const entry = {
+        species,
+        length,
+        method,
+        spot,
+        time: new Date().toISOString(),
+        photo: photoDataUrl,
+      };
+
+      const entries = loadCatchLog();
+      entries.push(entry);
+      saveCatchLog(entries);
+      renderCatchLog();
+
+      document.getElementById("catchSpecies").value = "";
+      document.getElementById("catchLength").value = "";
+      document.getElementById("catchMethod").value = "";
+      document.getElementById("catchSpot").value = "";
+      document.getElementById("catchPhoto").value = "";
+    }
+
+    function clearCatchLog() {
+      if (!confirm("Clear all saved catch entries on this device?")) return;
+      localStorage.removeItem(CATCH_KEY);
+      renderCatchLog();
+    }
+
+    document
+      .getElementById("btnSaveCatch")
+      .addEventListener("click", () => {
+        handleSaveCatch().catch((e) =>
+          console.error("Save catch failed", e)
+        );
+      });
+
+    renderCatchLog();
+    setFishTime("day");
+    setFishPosition("shore");
+  </script>
+</body>
+</html>
