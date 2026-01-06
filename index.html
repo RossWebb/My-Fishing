@@ -482,7 +482,7 @@
     </button>
 
     <p class="small muted" style="margin-top: 4px;">
-      Runs a short prompt into Gemini 1.5 Flash.
+      Runs a short prompt into Gemini 2.5 Flash.
     </p>
   </div>
 
@@ -528,7 +528,7 @@
 
     <div class="row">
       <div>
-        <label for="fishPhotoInput">Fish photo</label>
+        <label for="fishPhotoInput">Tap here to take a photo of the fish (opens camera)</label>
         <input
           id="fishPhotoInput"
           type="file"
@@ -651,7 +651,7 @@
 
     const STORMGLASS_EXTREMES = "https://api.stormglass.io/v2/tide/extremes/point";
     const STORMGLASS_SEALEVEL = "https://api.stormglass.io/v2/tide/sea-level/point";
-    const GEMINI_ENDPOINT = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent";
+    const GEMINI_ENDPOINT = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent";
 
     // DOM elements
     const tideCard = document.getElementById("tideCard");
@@ -1011,8 +1011,39 @@ Angler notes: "${notes}"`;
       }
     }
 
+    // Fish photo preview
+    const fishPhotoInput = document.getElementById("fishPhotoInput");
+    const fishIdResult = document.getElementById("fishIdResult"); // We'll use this area for preview + result
+    
+    fishPhotoInput.addEventListener("change", (e) => {
+      const file = e.target.files[0];
+      fishIdResult.innerHTML = ""; // Clear any previous preview or result
+    
+      if (file) {
+        const img = document.createElement("img");
+        img.src = URL.createObjectURL(file);
+        img.style.maxWidth = "100%";
+        img.style.maxHeight = "240px";
+        img.style.borderRadius = "10px";
+        img.style.marginTop = "8px";
+        img.style.display = "block";
+        img.style.boxShadow = "0 4px 12px rgba(0,0,0,0.3)";
+        
+        const caption = document.createElement("div");
+        caption.textContent = "Photo ready – tap Identify fish below";
+        caption.className = "small muted";
+        caption.style.marginTop = "6px";
+    
+        fishIdResult.appendChild(img);
+        fishIdResult.appendChild(caption);
+      } else {
+        fishIdResult.innerHTML = ""; // No photo selected
+      }
+    });
+
     // Init
     renderCatchLog();
   </script>
 </body>
 </html>
+
