@@ -9,39 +9,14 @@
       --bg: #020617;
       --fg: #e5e7eb;
       --accent: #22c55e;
-      --accent-soft: rgba(34, 197, 94, 0.15);
-      --danger: #ef4444;
-      --card: #020617;
       --muted: #9ca3af;
       --border: #1f2937;
     }
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-        sans-serif;
-    }
-    body {
-      background: radial-gradient(circle at top, #1e293b 0, #020617 55%);
-      color: var(--fg);
-      min-height: 100vh;
-      padding: 16px;
-    }
-    h1 {
-      font-size: 1.4rem;
-      margin-bottom: 8px;
-    }
-    h2 {
-      font-size: 1.1rem;
-      margin-top: 20px;
-      margin-bottom: 8px;
-    }
-    p {
-      font-size: 0.9rem;
-      color: var(--muted);
-      margin-bottom: 6px;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    body { background: radial-gradient(circle at top, #1e293b 0, #020617 55%); color: var(--fg); min-height: 100vh; padding: 16px; }
+    h1 { font-size: 1.4rem; margin-bottom: 8px; }
+    h2 { font-size: 1.1rem; margin-top: 20px; margin-bottom: 8px; }
+    p { font-size: 0.9rem; color: var(--muted); margin-bottom: 6px; }
     .card {
       background: rgba(15, 23, 42, 0.9);
       border-radius: 14px;
@@ -51,25 +26,10 @@
       box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
       backdrop-filter: blur(14px);
     }
-    .row {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 8px;
-    }
-    .row > * {
-      flex: 1;
-    }
-    label {
-      font-size: 0.75rem;
-      color: var(--muted);
-      margin-bottom: 4px;
-      display: block;
-      letter-spacing: 0.03em;
-      text-transform: uppercase;
-    }
-    input,
-    select,
-    textarea {
+    .row { display: flex; gap: 8px; margin-bottom: 8px; }
+    .row > * { flex: 1; }
+    label { font-size: 0.75rem; color: var(--muted); margin-bottom: 4px; display: block; letter-spacing: 0.03em; text-transform: uppercase; }
+    input, select, textarea {
       width: 100%;
       padding: 8px 10px;
       border-radius: 10px;
@@ -79,12 +39,7 @@
       font-size: 0.9rem;
       outline: none;
     }
-    input:focus,
-    select:focus,
-    textarea:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.3);
-    }
+    input:focus, select:focus, textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.3); }
     button {
       border-radius: 999px;
       border: none;
@@ -94,549 +49,189 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      transition: transform 0.08s ease, box-shadow 0.1s ease,
-        background 0.15s ease;
-      white-space: nowrap;
+      transition: all 0.15s ease;
     }
-    button:active {
-      transform: translateY(1px);
-      box-shadow: none;
-    }
-    .btn-primary {
-      background: linear-gradient(135deg, #16a34a, #22c55e);
-      color: #0b1120;
-      box-shadow: 0 10px 25px rgba(34, 197, 94, 0.35);
-    }
-    .btn-ghost {
-      background: rgba(15, 23, 42, 0.9);
-      color: var(--fg);
-      border: 1px solid var(--border);
-    }
-    .btn-danger {
-      background: #7f1d1d;
-      color: #fee2e2;
-    }
-    .btn-sm {
-      padding: 6px 10px;
-      font-size: 0.78rem;
-    }
-    .pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      padding: 3px 8px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.35);
-      color: #e5e7eb;
-      background: radial-gradient(circle at top left, #1e293b, #020617);
-      margin-bottom: 6px;
-    }
-    .pill.green {
-      border-color: rgba(34, 197, 94, 0.45);
-      color: #bbf7d0;
-      background: radial-gradient(circle at top left, #166534, #022c22);
-    }
-    .pill.blue {
-      border-color: rgba(56, 189, 248, 0.45);
-      color: #e0f2fe;
-      background: radial-gradient(circle at top left, #0ea5e9, #0b1120);
-    }
-    .pill.red {
-      border-color: rgba(248, 113, 113, 0.5);
-      color: #fee2e2;
-      background: radial-gradient(circle at top left, #b91c1c, #020617);
-    }
-    .tiny-label {
-      font-size: 0.7rem;
-      color: var(--muted);
-      margin-bottom: 2px;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-    }
-    .tide-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 8px;
-      gap: 6px;
-    }
-    .tide-time {
-      font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo,
-        Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      font-size: 0.86rem;
-    }
-    .tide-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.85rem;
-      margin-top: 4px;
-    }
-    .tide-table th,
-    .tide-table td {
-      padding: 6px 4px;
-      text-align: left;
-      border-bottom: 1px solid rgba(31, 41, 55, 0.85);
-    }
-    .tide-table th {
-      font-size: 0.72rem;
-      text-transform: uppercase;
-      letter-spacing: 0.09em;
-      color: var(--muted);
-    }
-    .tide-now-row {
-      background: linear-gradient(
-        90deg,
-        rgba(34, 197, 94, 0.15),
-        rgba(15, 23, 42, 0.95)
-      );
-    }
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 3px;
-      font-size: 0.7rem;
-      padding: 2px 7px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.5);
-    }
-    .badge.high {
-      border-color: rgba(34, 197, 94, 0.8);
-      color: #bbf7d0;
-    }
-    .badge.low {
-      border-color: rgba(59, 130, 246, 0.8);
-      color: #bfdbfe;
-    }
-    .badge.now {
-      border-color: rgba(251, 191, 36, 0.9);
-      color: #fef3c7;
-    }
-    .warning {
-      margin-top: 8px;
-      padding: 6px 8px;
-      border-radius: 10px;
-      border: 1px solid rgba(248, 113, 113, 0.7);
-      background: radial-gradient(circle at left, #450a0a, #020617);
-      color: #fecaca;
-      font-size: 0.78rem;
-      line-height: 1.35;
-    }
-    .warning strong {
-      color: #fecaca;
-    }
-    .tabs {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 4px;
-      margin-top: 6px;
-      margin-bottom: 6px;
-    }
-    .tab {
-      text-align: center;
-      padding: 6px 0;
-      font-size: 0.78rem;
-      border-radius: 999px;
-      border: 1px solid rgba(31, 41, 55, 0.95);
-      cursor: pointer;
-      background: rgba(15, 23, 42, 0.8);
-      color: var(--muted);
-      user-select: none;
-    }
-    .tab.active {
-      border-color: rgba(34, 197, 94, 0.9);
-      background: radial-gradient(circle at top, #16a34a, #022c22);
-      color: #e5f9ed;
-      font-weight: 500;
-    }
-    .chip-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-top: 4px;
-      margin-bottom: 4px;
-    }
-    .chip {
-      font-size: 0.7rem;
-      padding: 3px 8px;
-      border-radius: 999px;
-      background: rgba(15, 23, 42, 0.9);
-      border: 1px solid rgba(55, 65, 81, 0.9);
-      color: #e5e7eb;
-    }
-    .section-title {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 6px;
-    }
-    .section-title span {
-      font-size: 0.78rem;
-      color: var(--muted);
-    }
-    .divider {
-      height: 1px;
-      background: radial-gradient(
-        circle at center,
-        rgba(148, 163, 184, 0.4),
-        transparent
-      );
-      margin: 8px 0;
-    }
-    .log-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 8px;
-      margin-top: 6px;
-    }
-    .log-item {
-      background: rgba(15, 23, 42, 0.9);
-      border-radius: 10px;
-      border: 1px solid rgba(31, 41, 55, 0.95);
-      padding: 6px;
-      font-size: 0.8rem;
-      display: flex;
-      flex-direction: column;
-      gap: 3px;
-    }
-    .log-item img {
-      width: 100%;
-      border-radius: 8px;
-      margin-top: 4px;
-      object-fit: cover;
-      max-height: 120px;
-    }
-    .muted {
-      color: var(--muted);
-      font-size: 0.8rem;
-    }
-    .tag {
-      font-size: 0.7rem;
-      padding: 2px 7px;
-      border-radius: 999px;
-      border: 1px solid rgba(75, 85, 99, 0.9);
-      color: #e5e7eb;
-    }
-    .tag.green {
-      border-color: rgba(34, 197, 94, 0.8);
-      color: #bbf7d0;
-    }
-    .tag.blue {
-      border-color: rgba(59, 130, 246, 0.8);
-      color: #bfdbfe;
-    }
-    .tag.night {
-      border-color: rgba(129, 140, 248, 0.9);
-      color: #c7d2fe;
-    }
-    .tag.day {
-      border-color: rgba(251, 191, 36, 0.9);
-      color: #fef3c7;
-    }
-    .hidden {
-      display: none !important;
-    }
-    .small {
-      font-size: 0.78rem;
-    }
-    .textarea-small {
-      min-height: 50px;
-      resize: vertical;
-    }
-    @media (min-width: 768px) {
-      body {
-        max-width: 640px;
-        margin: 0 auto;
-      }
-    }
+    button:active { transform: translateY(1px); }
+    .btn-primary { background: linear-gradient(135deg, #16a34a, #22c55e); color: #0b1120; box-shadow: 0 10px 25px rgba(34, 197, 94, 0.35); }
+    .btn-ghost { background: rgba(15, 23, 42, 0.9); color: var(--fg); border: 1px solid var(--border); }
+    .btn-sm { padding: 6px 10px; font-size: 0.78rem; }
+    .pill.green { display: inline-flex; padding: 3px 8px; border-radius: 999px; background: radial-gradient(circle at top left, #166534, #022c22); border: 1px solid rgba(34, 197, 94, 0.45); color: #bbf7d0; font-size: 0.7rem; text-transform: uppercase; margin-bottom: 6px; }
+    .tide-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; gap: 6px; }
+    .tide-time { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 0.86rem; }
+    .tide-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; margin-top: 4px; }
+    .tide-table th, .tide-table td { padding: 6px 4px; text-align: left; border-bottom: 1px solid rgba(31, 41, 55, 0.85); }
+    .tide-table th { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.09em; color: var(--muted); }
+    .tide-now-row { background: linear-gradient(90deg, rgba(34, 197, 94, 0.15), rgba(15, 23, 42, 0.95)); }
+    .badge { display: inline-flex; align-items: center; gap: 3px; font-size: 0.7rem; padding: 2px 7px; border-radius: 999px; border: 1px solid rgba(148, 163, 184, 0.5); }
+    .badge.high { border-color: rgba(34, 197, 94, 0.8); color: #bbf7d0; }
+    .badge.low { border-color: rgba(59, 130, 246, 0.8); color: #bfdbfe; }
+    .badge.now { border-color: rgba(251, 191, 36, 0.9); color: #fef3c7; }
+    .warning { margin-top: 8px; padding: 6px 8px; border-radius: 10px; border: 1px solid rgba(248, 113, 113, 0.7); background: radial-gradient(circle at left, #450a0a, #020617); color: #fecaca; font-size: 0.78rem; line-height: 1.35; }
+    .coeff-container { margin: 12px 0; }
+    .coeff-bar { height: 20px; border-radius: 10px; background: linear-gradient(to right, #22c55e, #eab308, #ef4444); position: relative; }
+    .coeff-marker { position: absolute; top: -8px; width: 4px; height: 36px; background: white; box-shadow: 0 0 8px black; border-radius: 2px; left: 0%; }
+    .tabs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 4px; margin: 6px 0; }
+    .tab { text-align: center; padding: 6px 0; font-size: 0.78rem; border-radius: 999px; border: 1px solid rgba(31, 41, 55, 0.95); cursor: pointer; background: rgba(15, 23, 42, 0.8); color: var(--muted); user-select: none; }
+    .tab.active { border-color: rgba(34, 197, 94, 0.9); background: radial-gradient(circle at top, #16a34a, #022c22); color: #e5f9ed; font-weight: 500; }
+    .chip-row { display: flex; flex-wrap: wrap; gap: 6px; margin: 4px 0; }
+    .section-title { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 6px; }
+    .log-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin-top: 6px; }
+    .log-item { background: rgba(15, 23, 42, 0.9); border-radius: 10px; border: 1px solid rgba(31, 41, 55, 0.95); padding: 6px; font-size: 0.8rem; display: flex; flex-direction: column; gap: 3px; }
+    .log-item img { width: 100%; border-radius: 8px; margin-top: 4px; object-fit: cover; max-height: 120px; }
+    .tag { font-size: 0.7rem; padding: 2px 7px; border-radius: 999px; border: 1px solid rgba(75, 85, 99, 0.9); color: #e5e7eb; }
+    .tag.green { border-color: rgba(34, 197, 94, 0.8); color: #bbf7d0; }
+    .tag.blue { border-color: rgba(59, 130, 246, 0.8); color: #bfdbfe; }
+    .hidden { display: none !important; }
+    .small { font-size: 0.78rem; }
+    .textarea-small { min-height: 50px; resize: vertical; }
+    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center; z-index: 1000; }
+    .modal { background: #0f172a; border-radius: 16px; border: 1px solid var(--border); padding: 20px; width: 90%; max-width: 420px; box-shadow: 0 20px 50px rgba(0,0,0,0.6); }
+    .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+    .modal-close { background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--muted); }
+    @media (min-width: 768px) { body { max-width: 640px; margin: 0 auto; } }
   </style>
 </head>
 <body>
   <div class="card">
-    <div class="pill green">
-      <span>Fisher’s Tides & Fish Guide</span>
+    <div style="display:flex; justify-content:space-between; align-items:center;">
+      <div>
+        <div class="pill green"><span>Fisher’s Tides & Fish Guide</span></div>
+        <h1>Today’s Tides & Local Fishing</h1>
+      </div>
+      <button id="btnSettings" class="btn-ghost btn-sm">⚙️ Settings</button>
     </div>
-    <h1>Today’s Tides & Local Fishing</h1>
-    <p>Tool for planning tides, fish targets, and logging catches.</p>
+    <p>Official BoM tides + AI fish intel for WA.</p>
   </div>
 
-  <!-- Location + Tide controls -->
   <div class="card">
     <div class="section-title">
-      <div>
-        <div class="tiny-label">Step 1</div>
-        <h2>Pick Tide Location</h2>
-      </div>
-      <button id="btnUseGps" class="btn-ghost btn-sm" type="button">
-        📍 Use GPS
-      </button>
+      <div><div class="tiny-label">Step 1</div><h2>Select WA Port</h2></div>
     </div>
-
     <div class="row">
       <div>
-        <label for="manualLocation">Manual location (port / creek / GPS)</label>
-        <input
-          id="manualLocation"
-          type="text"
-          placeholder="e.g. Fremantle, WA or -32.06, 115.74"
-        />
+        <label for="portSelect">Tide port</label>
+        <select id="portSelect">
+          <option value="WA_TP023">Broome</option>
+          <option value="WA_TP014">Fremantle</option>
+          <option value="WA_TP009">Exmouth</option>
+          <option value="WA_TP020">Port Hedland</option>
+          <option value="WA_TP018">Onslow</option>
+          <option value="WA_TP016">Karratha</option>
+          <option value="WA_TP015">Dampier</option>
+          <option value="WA_TP022">Wyndham</option>
+          <option value="WA_TP010">Geraldton</option>
+          <option value="WA_TP012">Bunbury</option>
+          <option value="WA_TP011">Esperance</option>
+          <option value="WA_TP013">Albany</option>
+        </select>
       </div>
     </div>
-
-    <button id="btnLoadTides" class="btn-primary" type="button">
-      ⚓ Load today’s tide chart
-    </button>
-
-    <p class="small muted" style="margin-top: 4px;">
-      Uses StormGlass Global Tide endpoint for today’s levels and extremes.
-    </p>
+    <button id="btnLoadTides" class="btn-primary">⚓ Load today’s tide</button>
+    <p class="small muted" style="margin-top:4px;">Data from Bureau of Meteorology (BoM).</p>
   </div>
 
-  <!-- Tide chart -->
   <div id="tideCard" class="card hidden">
     <div class="tide-header">
-      <div>
-        <div class="tiny-label">Today’s tide</div>
-        <h2 id="tideLocationLabel">Location</h2>
-      </div>
-      <div style="text-align: right;">
+      <div><div class="tiny-label">Today’s tide • BoM official</div><h2 id="tideLocationLabel">Broome</h2></div>
+      <div style="text-align:right;">
         <div class="tiny-label">Date</div>
         <div class="tide-time" id="tideDateLabel"></div>
         <div class="tide-time" id="tideNowTime"></div>
       </div>
     </div>
 
-    <table class="tide-table" aria-label="Tide levels and extremes">
-      <thead>
-        <tr>
-          <th style="width: 40%;">Time</th>
-          <th style="width: 30%;">Height (m)</th>
-          <th style="width: 30%;">Note</th>
-        </tr>
-      </thead>
+    <div class="coeff-container">
+      <div class="small muted" style="margin-bottom:4px;">
+        Tide coefficient: <strong id="coeffValue">—</strong> <span id="coeffDesc"></span>
+      </div>
+      <div class="coeff-bar">
+        <div id="coeffMarker" class="coeff-marker hidden"></div>
+      </div>
+      <div class="small muted" style="display:flex; justify-content:space-between;">
+        <span>Neap (small range)</span>
+        <span>Spring (large range)</span>
+      </div>
+    </div>
+
+    <table class="tide-table">
+      <thead><tr><th>Time</th><th>Height (m)</th><th>Note</th></tr></thead>
       <tbody id="tideTableBody"></tbody>
     </table>
 
     <div class="warning">
-      <strong>Warning:</strong> Predictions are approximate. Local wind, barometric pressure, river
-      flow and short-term anomalies can shift levels and times. Always watch
-      the water, carry safety gear, and allow extra margin around low-launch
-      ramps and shallow bars. Tide data is not a navigation authority.
+      <strong>Source:</strong> Bureau of Meteorology official tide predictions.
     </div>
   </div>
 
-  <!-- Fish intel prompt -->
   <div id="fishPromptCard" class="card hidden">
-    <div class="section-title">
-      <div>
-        <div class="tiny-label">Step 2</div>
-        <h2>Local Fish Intel</h2>
-      </div>
-    </div>
-    <p class="small">
-      Optional AI guidance for fish species likely to be on the bite in this
-      area and season, with short clues for presenting baits and lures.
-    </p>
-
+    <div class="section-title"><div><div class="tiny-label">Step 2</div><h2>Local Fish Intel</h2></div></div>
+    <p class="small">AI guidance on species, tactics, and bite times.</p>
     <div class="row">
-      <div>
-        <label>Fishing time</label>
-        <div class="chip-row">
-          <button type="button" class="tab active" data-timegroup="day">Day</button>
-          <button type="button" class="tab" data-timegroup="night">Night</button>
-        </div>
-      </div>
-      <div>
-        <label>Position</label>
-        <div class="chip-row">
-          <button type="button" class="tab active" data-position="shore">Shore / bank</button>
-          <button type="button" class="tab" data-position="boat">Boat</button>
-        </div>
-      </div>
+      <div><label>Fishing time</label><div class="chip-row">
+        <button type="button" class="tab active" data-timegroup="day">Day</button>
+        <button type="button" class="tab" data-timegroup="night">Night</button>
+      </div></div>
+      <div><label>Position</label><div class="chip-row">
+        <button type="button" class="tab active" data-position="shore">Shore / bank</button>
+        <button type="button" class="tab" data-position="boat">Boat</button>
+      </div></div>
     </div>
-
-    <label for="exactSpot">Exact fishing spot (optional)</label>
-    <input
-      id="exactSpot"
-      type="text"
-      placeholder="Jetty, reef, sand flat, rock wall, river bend..."
-    />
-
-    <label for="targetNotes" style="margin-top: 6px;">Target species / notes (optional)</label>
-    <textarea
-      id="targetNotes"
-      class="textarea-small"
-      placeholder="e.g. chasing tailor and mulloway in winter; strong current on making tide"
-    ></textarea>
-
-    <button
-      id="btnGetFishIntel"
-      class="btn-primary"
-      style="margin-top: 8px;"
-      type="button"
-    >
-      🎣 Get fish info & tactics
-    </button>
-
-    <p class="small muted" style="margin-top: 4px;">
-      Runs a short prompt into Gemini 2.5 Flash.
-    </p>
+    <label for="exactSpot">Exact spot (optional)</label>
+    <input id="exactSpot" type="text" placeholder="Jetty, reef, channel..." />
+    <label for="targetNotes">Target notes (optional)</label>
+    <textarea id="targetNotes" class="textarea-small" placeholder="e.g. chasing threadfin, strong current"></textarea>
+    <button id="btnGetFishIntel" class="btn-primary" style="margin-top:8px;">🎣 Get fish info & tactics</button>
   </div>
 
-  <!-- Fish intel output -->
   <div id="fishIntelCard" class="card hidden">
     <div class="section-title">
-      <div>
-        <div class="tiny-label">AI suggestion</div>
-        <h2>Fish & Tactics</h2>
-      </div>
+      <div><div class="tiny-label">AI suggestion</div><h2>Fish & Tactics</h2></div>
       <span id="fishIntelContext" class="small muted"></span>
     </div>
-
     <div class="tabs">
       <div class="tab active" data-fishpane-tab="day-shore">Day shore</div>
       <div class="tab" data-fishpane-tab="night-shore">Night shore</div>
       <div class="tab" data-fishpane-tab="day-boat">Day boat</div>
       <div class="tab" data-fishpane-tab="night-boat">Night boat</div>
     </div>
-
     <div id="pane-day-shore" class="small"></div>
     <div id="pane-night-shore" class="small hidden"></div>
     <div id="pane-day-boat" class="small hidden"></div>
     <div id="pane-night-boat" class="small hidden"></div>
-
-    <p class="small muted" style="margin-top: 6px;">
-      Use this as a starting point only. Local regulations and size/possession
-      limits always apply.
-    </p>
   </div>
 
-  <!-- Fish ID -->
   <div class="card">
-    <div class="section-title">
-      <div>
-        <div class="tiny-label">Fish identification</div>
-        <h2>Photo ID helper</h2>
-      </div>
-    </div>
-    <p class="small">
-      Use AI to help identify a fish from a photo and short description.
-    </p>
-
-    <div class="row">
-      <div>
-        <label for="fishPhotoInput">Tap here to take a photo of the fish (opens camera)</label>
-        <input
-          id="fishPhotoInput"
-          type="file"
-          accept="image/*"
-          capture="environment"
-        />
-      </div>
-    </div>
-    <label for="fishIdNotes" style="margin-top: 6px;">Visible features</label>
-    <textarea
-      id="fishIdNotes"
-      class="textarea-small"
-      placeholder="Colour, fin shape, spots/stripes, approximate length, depth, bottom type..."
-    ></textarea>
-
-    <button
-      id="btnIdentifyFish"
-      class="btn-primary"
-      style="margin-top: 8px;"
-      type="button"
-    >
-      🔎 Identify fish
-    </button>
-
-    <div id="fishIdResult" class="small" style="margin-top: 8px;"></div>
+    <div class="section-title"><div><div class="tiny-label">Fish ID</div><h2>Photo Identification</h2></div></div>
+    <p class="small">Take a photo — AI will help identify the species.</p>
+    <label for="fishPhotoInput">Tap to take photo (opens camera on mobile)</label>
+    <input id="fishPhotoInput" type="file" accept="image/*" capture="environment" />
+    <div id="fishPhotoPreview" style="margin-top:8px;"></div>
+    <label for="fishIdNotes">Visible features / notes (optional)</label>
+    <textarea id="fishIdNotes" class="textarea-small" placeholder="Spots, colour, fin shape, size..."></textarea>
+    <button id="btnIdentifyFish" class="btn-primary" style="margin-top:8px;">🔎 Identify fish</button>
+    <div id="fishIdResult" class="small" style="margin-top:8px;"></div>
   </div>
 
-  <!-- Catch log -->
   <div class="card">
     <div class="section-title">
-      <div>
-        <div class="tiny-label">Catch log</div>
-        <h2>Log a catch</h2>
-      </div>
-      <button
-        type="button"
-        class="btn-ghost btn-sm"
-        onclick="clearCatchLog()"
-      >
-        🧹 Clear log
-      </button>
+      <div><div class="tiny-label">Catch log</div><h2>Log a catch</h2></div>
+      <button class="btn-ghost btn-sm" onclick="clearCatchLog()">🧹 Clear all</button>
     </div>
-
     <div class="row">
-      <div>
-        <label for="catchSpecies">Species</label>
-        <input id="catchSpecies" type="text" placeholder="e.g. snapper" />
-      </div>
-      <div>
-        <label for="catchLength">Length (cm)</label>
-        <input
-          id="catchLength"
-          type="number"
-          min="0"
-          step="0.5"
-          placeholder="e.g. 45"
-        />
-      </div>
+      <div><label for="catchSpecies">Species</label><input id="catchSpecies" type="text" /></div>
+      <div><label for="catchLength">Length (cm)</label><input id="catchLength" type="number" step="0.1" /></div>
     </div>
-
     <div class="row">
-      <div>
-        <label for="catchMethod">Method</label>
-        <input
-          id="catchMethod"
-          type="text"
-          placeholder="e.g. 5” jerkshad, mulie on paternoster"
-        />
-      </div>
+      <div><label for="catchMethod">Method / bait</label><input id="catchMethod" type="text" /></div>
     </div>
-
     <div class="row">
-      <div>
-        <label for="catchSpot">Spot (optional)</label>
-        <input
-          id="catchSpot"
-          type="text"
-          placeholder="Jetty, reef mark, channel edge etc."
-        />
-      </div>
+      <div><label for="catchSpot">Spot (optional)</label><input id="catchSpot" type="text" /></div>
     </div>
-
     <div class="row">
-      <div>
-        <label for="catchPhoto">Catch photo</label>
-        <input
-          id="catchPhoto"
-          type="file"
-          accept="image/*"
-          capture="environment"
-        />
-      </div>
+      <div><label for="catchPhoto">Photo</label><input id="catchPhoto" type="file" accept="image/*" capture="environment" /></div>
     </div>
-
-    <button
-      id="btnSaveCatch"
-      class="btn-primary"
-      style="margin-top: 8px;"
-      type="button"
-    >
-      📓 Save catch to log
-    </button>
-
-    <p class="small muted" style="margin-top: 4px;">
-      Catch log entries are stored locally in this browser only.
-    </p>
-
-    <div class="divider"></div>
+    <button id="btnSaveCatch" class="btn-primary" style="margin-top:8px;">📓 Save catch</button>
+    <div style="height:1px;background:rgba(148,163,184,0.3);margin:16px 0;"></div>
     <div class="section-title">
       <span class="tiny-label">Recent catches</span>
       <span id="catchCountLabel" class="small muted">0 saved</span>
@@ -644,16 +239,44 @@
     <div id="catchLogList" class="log-grid"></div>
   </div>
 
+  <div id="settingsModal" class="modal-overlay hidden">
+    <div class="modal">
+      <div class="modal-header">
+        <h2>Gemini AI Key</h2>
+        <button id="modalClose" class="modal-close">✕</button>
+      </div>
+      <div class="row">
+        <div>
+          <label for="geminiKey">Gemini Key (for fish intel & ID)</label>
+          <input id="geminiKey" type="password" placeholder="Get free at aistudio.google.com/apikey" />
+        </div>
+      </div>
+      <button id="btnSaveKeys" class="btn-primary" style="margin-top:12px;">Save key</button>
+      <p class="small muted" style="margin-top:8px;">Saved only on this device.</p>
+    </div>
+  </div>
+
   <script>
-    // Hardwired placeholder keys (replace with real ones for actual data)
-    const STORMGLASS_KEY = "3e89dcf4-ea0c-11f0-a8f4-0242ac130003-3e89dd58-ea0c-11f0-a8f4-0242ac130003";
-    const GEMINI_KEY = "AIzaSyAsb908zo4sRFj9eK1Ms-b86Cf6QyaPpI0";
+    const PORTS = {
+      "WA_TP023": "Broome",
+      "WA_TP014": "Fremantle",
+      "WA_TP009": "Exmouth",
+      "WA_TP020": "Port Hedland",
+      "WA_TP018": "Onslow",
+      "WA_TP016": "Karratha",
+      "WA_TP015": "Dampier",
+      "WA_TP022": "Wyndham",
+      "WA_TP010": "Geraldton",
+      "WA_TP012": "Bunbury",
+      "WA_TP011": "Esperance",
+      "WA_TP013": "Albany"
+    };
 
-    const STORMGLASS_EXTREMES = "https://api.stormglass.io/v2/tide/extremes/point";
-    const STORMGLASS_SEALEVEL = "https://api.stormglass.io/v2/tide/sea-level/point";
+    const CORS_PROXY = "https://corsproxy.io/?";
     const GEMINI_ENDPOINT = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent";
+    const KEY_GEMINI = "fishing_gemini_key";
+    const CATCH_KEY = "fishing-catch-log-v1";
 
-    // DOM elements
     const tideCard = document.getElementById("tideCard");
     const tideTableBody = document.getElementById("tideTableBody");
     const tideLocationLabel = document.getElementById("tideLocationLabel");
@@ -666,299 +289,389 @@
     let fishTime = "day";
     let fishPosition = "shore";
 
-    function formatTime(dt) {
-      return dt.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-    }
-    function formatDateLocal(dt) {
-      return dt.toLocaleDateString(undefined, { weekday: "short", year: "numeric", month: "short", day: "numeric" });
-    }
+    function formatTime(dt) { return dt.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }); }
+    function formatDateLocal(dt) { return dt.toLocaleDateString(undefined, { weekday: "short", year: "numeric", month: "short", day: "numeric" }); }
 
-    function parseLatLng(text) {
-      if (!text) return null;
-      const parts = text.split(",").map(p => parseFloat(p.trim()));
-      if (parts.length === 2 && parts.every(n => Number.isFinite(n))) {
-        return { lat: parts[0], lng: parts[1] };
-      }
-      return null;
+    // Key management
+    function loadSavedKey() {
+      const gem = localStorage.getItem(KEY_GEMINI);
+      if (gem) document.getElementById("geminiKey").value = gem;
     }
+    function saveKey() {
+      localStorage.setItem(KEY_GEMINI, document.getElementById("geminiKey").value.trim());
+      alert("Key saved!");
+    }
+    document.getElementById("btnSaveKeys").addEventListener("click", saveKey);
+    document.getElementById("geminiKey").addEventListener("input", saveKey);
 
-    function findNowHeight(levels, now) {
-      if (!levels || levels.length === 0) return null;
-      levels.sort((a, b) => a.time - b.time);
-      let prev = levels[0];
-      for (let i = 1; i < levels.length; i++) {
-        const cur = levels[i];
-        if (now >= prev.time && now <= cur.time) {
-          const span = cur.time - prev.time;
-          const pos = span > 0 ? (now - prev.time) / span : 0;
-          return { time: now, height: prev.height + (cur.height - prev.height) * pos, note: "Approx. level now" };
-        }
-        prev = cur;
+    function getGeminiKey() { return localStorage.getItem(KEY_GEMINI) || ""; }
+
+    // Modal
+    const modal = document.getElementById("settingsModal");
+    document.getElementById("btnSettings").addEventListener("click", () => {
+      loadSavedKey();
+      modal.classList.remove("hidden");
+    });
+    document.getElementById("modalClose").addEventListener("click", () => modal.classList.add("hidden"));
+    modal.addEventListener("click", e => { if (e.target === modal) modal.classList.add("hidden"); });
+
+    function requireGemini() {
+      if (!getGeminiKey()) {
+        alert("Set Gemini key in Settings for fish intel & ID");
+        modal.classList.remove("hidden");
+        loadSavedKey();
+        return false;
       }
-      return { time: now, height: prev.height, note: "Approx. level now" };
+      return true;
     }
 
     async function loadTides() {
-      const locText = document.getElementById("manualLocation").value.trim();
-
-      let latLng = parseLatLng(locText);
-      if (!latLng) {
-        alert("Enter location as 'latitude, longitude' (e.g. -32.06, 115.74) or use GPS");
-        return;
-      }
+      const aac = document.getElementById("portSelect").value;
+      const portName = PORTS[aac];
+      tideLocationLabel.textContent = portName;
 
       const now = new Date();
-      const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-      const todayEnd = new Date(todayStart.getTime() + 24 * 60 * 60 * 1000 - 1);
+      tideDateLabel.textContent = formatDateLocal(now);
+      tideNowTime.textContent = `Now: ${formatTime(now)}`;
 
-      const params = new URLSearchParams({
-        lat: latLng.lat,
-        lng: latLng.lng,
-        start: Math.floor(todayStart.getTime() / 1000),
-        end: Math.floor(todayEnd.getTime() / 1000),
-      });
-
-      tideTableBody.innerHTML = '<tr><td colspan="3">Loading tides...</td></tr>';
+      tideTableBody.innerHTML = '<tr><td colspan="3">Loading BoM tides...</td></tr>';
 
       try {
-        const extResp = await fetch(`${STORMGLASS_EXTREMES}?${params}`, {
-          headers: { Authorization: STORMGLASS_KEY }
-        });
-        if (!extResp.ok) throw new Error(await extResp.text());
-        const extData = await extResp.json();
-        const extrema = extData.data || [];
+        const bomUrl = `http://www.bom.gov.au/australia/tides/scripts/getNextTides.php?aac=${aac}&offset=false&tz=Australia/Perth&days=1`;
+        const proxyUrl = CORS_PROXY + encodeURIComponent(bomUrl);
+        const res = await fetch(proxyUrl);
+        if (!res.ok) throw new Error(`Proxy error ${res.status}`);
+        const text = await res.text();
 
-        const lvlResp = await fetch(`${STORMGLASS_SEALEVEL}?${params}`, {
-          headers: { Authorization: STORMGLASS_KEY }
-        });
-        if (!lvlResp.ok) throw new Error(await lvlResp.text());
-        const lvlData = await lvlResp.json();
-        const levels = (lvlData.data || []).map(p => ({
-          time: new Date(p.time),
-          height: p.seaLevel || p.height || 0
-        }));
-
-        tideTableBody.innerHTML = "";
-        const rows = [];
-
-        extrema.forEach(ex => {
-          rows.push({
-            type: ex.type,
-            time: new Date(ex.time),
-            height: ex.height,
-            note: ex.type === "high" ? "High tide" : "Low tide"
-          });
-        });
-
-        const nowHeight = findNowHeight(levels, now);
-        if (nowHeight) {
-          rows.push({ type: "now", time: nowHeight.time, height: nowHeight.height, note: nowHeight.note });
+        let data;
+        try {
+          data = JSON.parse(text);
+        } catch (e) {
+          throw new Error("Invalid JSON from BoM");
         }
 
-        rows.sort((a, b) => a.time - b.time);
+        if (!data.results || !data.results.next_high || !data.results.next_low) {
+          throw new Error("No tide data returned");
+        }
 
-        rows.forEach(r => {
-          const tr = document.createElement("tr");
-          if (r.type === "now") tr.classList.add("tide-now-row");
+        const nextHigh = {
+          time: new Date(data.results.next_high.time * 1000),
+          height: data.results.next_high.height,
+          type: "high"
+        };
+        const nextLow = {
+          time: new Date(data.results.next_low.time * 1000),
+          height: data.results.next_low.height,
+          type: "low"
+        };
 
-          tr.innerHTML = `
-            <td>${formatTime(r.time)}</td>
-            <td>${r.height != null ? r.height.toFixed(2) : "—"}</td>
-            <td>
-              <span class="badge ${r.type === "high" ? "high" : r.type === "low" ? "low" : "now"}">
-                ${r.type === "high" ? "High" : r.type === "low" ? "Low" : "Now"}
-              </span> ${r.note}
-            </td>
+        // Coefficient
+        const range = Math.abs(nextHigh.height - nextLow.height);
+        const coeff = Math.min(100, Math.round(range * 12));
+        document.getElementById("coeffValue").textContent = coeff;
+        document.getElementById("coeffDesc").textContent = coeff < 40 ? "(neap)" : coeff > 70 ? "(spring)" : "(moderate)";
+        const marker = document.getElementById("coeffMarker");
+        marker.classList.remove("hidden");
+        marker.style.left = `${coeff}%`;
+
+        // Current level interpolation
+        let currentHeight = null;
+        let currentNote = "Next tides shown";
+
+        const nowTs = Date.now() / 1000;
+        if (nextLow.time.getTime() / 1000 < nextHigh.time.getTime() / 1000) {
+          if (nowTs >= nextLow.time.getTime() / 1000 && nowTs <= nextHigh.time.getTime() / 1000) {
+            const pos = (nowTs - nextLow.time.getTime() / 1000) / ((nextHigh.time.getTime() - nextLow.time.getTime()) / 1000);
+            currentHeight = nextLow.height + pos * (nextHigh.height - nextLow.height);
+            currentNote = "Rising";
+          }
+        } else {
+          if (nowTs >= nextHigh.time.getTime() / 1000 && nowTs <= nextLow.time.getTime() / 1000) {
+            const pos = (nowTs - nextHigh.time.getTime() / 1000) / ((nextLow.time.getTime() - nextHigh.time.getTime()) / 1000);
+            currentHeight = nextHigh.height + pos * (nextLow.height - nextHigh.height);
+            currentNote = "Falling";
+          }
+        }
+
+        tideTableBody.innerHTML = "";
+
+        // Sort upcoming tides: soonest first
+        const upcomingTides = [nextHigh, nextLow];
+        upcomingTides.sort((a, b) => a.time - b.time);
+
+        tideTableBody.innerHTML = "";
+
+        // Current level (if available) — always at top
+        if (currentHeight !== null) {
+          const trNow = document.createElement("tr");
+          trNow.classList.add("tide-now-row");
+          trNow.innerHTML = `
+            <td>${formatTime(now)}</td>
+            <td>${currentHeight.toFixed(2)}</td>
+            <td><span class="badge now">Now</span> Approx. level (${currentNote})</td>
           `;
-          tideTableBody.appendChild(tr);
-        });
+          tideTableBody.appendChild(trNow);
+        }
+
+        // Soonest upcoming tide
+        const soonest = upcomingTides[0];
+        const trSoon = document.createElement("tr");
+        trSoon.innerHTML = `
+          <td>${formatTime(soonest.time)}</td>
+          <td>${soonest.height.toFixed(2)}</td>
+          <td><span class="badge ${soonest.type}">Next</span> ${soonest.type.charAt(0).toUpperCase() + soonest.type.slice(1)} tide</td>
+        `;
+        tideTableBody.appendChild(trSoon);
+
+        // Following tide
+        const later = upcomingTides[1];
+        const trLater = document.createElement("tr");
+        trLater.innerHTML = `
+          <td>${formatTime(later.time)}</td>
+          <td>${later.height.toFixed(2)}</td>
+          <td><span class="badge ${later.type}">${later.type.charAt(0).toUpperCase() + later.type.slice(1)}</span> Following tide</td>
+        `;
+        tideTableBody.appendChild(trLater);
 
         tideCard.classList.remove("hidden");
         fishPromptCard.classList.remove("hidden");
-        tideLocationLabel.textContent = locText || `${latLng.lat.toFixed(3)}, ${latLng.lng.toFixed(3)}`;
-        tideDateLabel.textContent = formatDateLocal(now);
-        tideNowTime.textContent = `Now: ${formatTime(now)}`;
-
       } catch (err) {
-        console.error(err);
-        tideTableBody.innerHTML = `<tr><td colspan="3">Tide load failed: ${err.message || "Check key or network"}</td></tr>`;
+        tideTableBody.innerHTML = `<tr><td colspan="3">Failed: ${err.message}</td></tr>`;
       }
     }
 
-    async function callGemini(contentParts) {
-      const res = await fetch(`${GEMINI_ENDPOINT}?key=${GEMINI_KEY}`, {
+    document.getElementById("portSelect").addEventListener("change", () => {
+      tideLocationLabel.textContent = PORTS[document.getElementById("portSelect").value];
+    });
+
+    document.getElementById("btnLoadTides").addEventListener("click", loadTides);
+
+    // Fish Intel
+    async function callGemini(parts) {
+      const key = getGeminiKey();
+      const res = await fetch(`${GEMINI_ENDPOINT}?key=${key}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ contents: [{ parts: contentParts }] })
+        body: JSON.stringify({ contents: [{ parts }] })
       });
       if (!res.ok) throw new Error(await res.text());
       const data = await res.json();
       return data.candidates?.[0]?.content?.parts?.[0]?.text || "";
     }
 
-    // GPS
-    document.getElementById("btnUseGps").addEventListener("click", () => {
-      if (!navigator.geolocation) return alert("Geolocation not supported");
-      navigator.geolocation.getCurrentPosition(
-        pos => {
-          document.getElementById("manualLocation").value =
-            `${pos.coords.latitude.toFixed(5)}, ${pos.coords.longitude.toFixed(5)}`;
-        },
-        () => alert("GPS failed")
-      );
-    });
+	document.getElementById("btnGetFishIntel").addEventListener("click", async () => {
+	  if (!requireGemini()) return;
 
-    document.getElementById("btnLoadTides").addEventListener("click", loadTides);
+	  // Show loading state
+	  document.getElementById("fishIntelCard").classList.remove("hidden");
+	  const panes = ["pane-day-shore", "pane-night-shore", "pane-day-boat", "pane-night-boat"];
+	  panes.forEach(id => document.getElementById(id).innerHTML = '<div class="small muted" style="text-align:center; padding:20px;">🧠 Thinking... please wait</div>');
 
-    // Fish intel button
-    document.getElementById("btnGetFishIntel").addEventListener("click", async () => {
-      const locationRaw = document.getElementById("manualLocation").value.trim();
-      const exactSpot = document.getElementById("exactSpot").value.trim();
-      const targetNotes = document.getElementById("targetNotes").value.trim();
+	  const port = tideLocationLabel.textContent;
+	  const month = new Date().toLocaleString(undefined, { month: "short" });
+	  const exactSpot = document.getElementById("exactSpot").value.trim();
+	  const targetNotes = document.getElementById("targetNotes").value.trim();
 
-      const now = new Date();
-      const month = now.toLocaleString(undefined, { month: "short" });
-      const seasonHint = `Month: ${month}, hemisphere: Southern (assume WA / AU coastal conditions).`;
+	  const prompt = `You are a highly experienced Western Australian saltwater fishing guide for ${port} in ${month}.
 
-      const baseContext = "You are an experienced local saltwater fishing guide. Write tight, bullet-style tips for likely target species, depth bands and bait/lure presentations. Avoid tourist chat. Focus on practical, season-aware information. Keep each bullet under 25 words.";
-      const scope = `Location text: "${locationRaw || "unknown"}". Exact spot: "${exactSpot || "not specified"}". ${seasonHint}`;
-      const layout = "Return four clearly separated sections, with headings exactly: 'DAY SHORE', 'NIGHT SHORE', 'DAY BOAT', 'NIGHT BOAT'. Under each heading, list 4–7 short bullets.";
-      const regs = "Do not invent legal sizes. Instead say: 'Check current local size/bag limits before keeping fish.' once per section.";
+	Provide practical, concise fishing tips in exactly four sections titled:
+	DAY SHORE
+	NIGHT SHORE
+	DAY BOAT
+	NIGHT BOAT
 
-      const prompt = `${baseContext}\n\n${scope}\n\n${layout}\n\n${regs}`;
+	Each section must have 4–7 short bullet points covering:
+	- Target species active now
+	- Best baits or lures
+	- Where to fish (structure, depth, spot type)
+	- Tide or time preferences
 
-      try {
-        const text = await callGemini([{ text: prompt }]);
+	Exact spot notes: "${exactSpot || "general area"}"
+	Target notes: "${targetNotes || "none"}"
 
-        const sections = {
-          "DAY SHORE": "pane-day-shore",
-          "NIGHT SHORE": "pane-night-shore",
-          "DAY BOAT": "pane-day-boat",
-          "NIGHT BOAT": "pane-night-boat",
-        };
-        Object.values(sections).forEach(id => {
-          const el = document.getElementById(id);
-          if (el) el.innerHTML = "";
-        });
+	End each section with: "Check current local size/bag limits before keeping fish."`;
 
-        let current = null;
-        text.split('\n').forEach(line => {
-          const trimmed = line.trim();
-          if (!trimmed) return;
-          const upper = trimmed.toUpperCase();
-          if (sections[upper]) {
-            current = upper;
-            const el = document.getElementById(sections[current]);
-            if (el) el.innerHTML = `<div class="pill blue">${current.replace(/ /g, ' ')}</div>`;
-          } else if (current && trimmed.startsWith("-")) {
-            const el = document.getElementById(sections[current]);
-            if (el) {
-              const div = document.createElement("div");
-              div.textContent = trimmed.replace(/^- ?/, "• ");
-              el.appendChild(div);
-            }
-          }
-        });
+	  try {
+		const text = await callGemini([{ text: prompt }]);
+		console.log("Raw AI response:", text);
 
-        fishIntelCard.classList.remove("hidden");
-        fishIntelContext.textContent = `${fishTime} / ${fishPosition}`;
-        showFishPane(`${fishTime}-${fishPosition}`);
-      } catch (err) {
-        console.error(err);
-        alert("Fish intel failed: " + (err.message || "Check Gemini key"));
-      }
-    });
+		const sections = {
+		  "DAY SHORE": "pane-day-shore",
+		  "NIGHT SHORE": "pane-night-shore",
+		  "DAY BOAT": "pane-day-boat",
+		  "NIGHT BOAT": "pane-night-boat"
+		};
 
-    // Fish time/position tabs
-    document.querySelectorAll("[data-timegroup]").forEach(el => {
-      el.addEventListener("click", () => {
-        fishTime = el.dataset.timegroup;
-        document.querySelectorAll("[data-timegroup]").forEach(b => b.classList.toggle("active", b === el));
-      });
-    });
-    document.querySelectorAll("[data-position]").forEach(el => {
-      el.addEventListener("click", () => {
-        fishPosition = el.dataset.position;
-        document.querySelectorAll("[data-position]").forEach(b => b.classList.toggle("active", b === el));
+		// Clear loading message
+		Object.values(sections).forEach(id => document.getElementById(id).innerHTML = "");
+
+		let current = null;
+		text.split('\n').forEach(line => {
+		  const trimmed = line
+		    .replace(/\r/g, "")              // remove CR characters
+		    .trim()
+		    .replace(/^#{1,6}\s*/, "")       // remove ### markdown headings
+		    .replace(/^\*+\s*/, "")          // remove leading markdown bullets
+		    .replace(/\*+$/, "");            // remove trailing markdown
+
+
+		  const header = trimmed.toUpperCase().replace(/[:–—-]+$/, "");
+			if (sections[header]) {
+			  current = header;
+			} else if (current && trimmed) {
+			  const div = document.createElement("div");
+			  div.textContent = "• " + trimmed
+				  .replace(/^[-•\d.]+\s*/, "")
+				  .replace(/\*\*(.*?)\*\*/g, "$1");
+
+			  document.getElementById(sections[current]).appendChild(div);
+			}
+		});
+		
+		if (!current) {
+		  Object.values(sections).forEach(id => {
+			document.getElementById(id).innerHTML =
+			  "<div class='small muted'>AI response received but could not be parsed</div>";
+		  });
+		}
+
+
+		fishIntelCard.classList.remove("hidden");
+		fishIntelContext.textContent = `${fishTime} / ${fishPosition}`;
+		showFishPane(`${fishTime}-${fishPosition}`);
+	  } catch (err) {
+		let msg = err.message || "Unknown error";
+		if (msg.includes("overloaded") || msg.includes("429") || msg.includes("quota") || msg.includes("rate limit")) {
+		  msg = "AI is busy right now — please try again in a minute";
+		}
+		panes.forEach(id => {
+		  document.getElementById(id).innerHTML = `<div class="small" style="color:#fecaca; text-align:center; padding:20px;">${msg}</div>`;
+		});
+		fishIntelCard.classList.remove("hidden");
+	  }
+	});
+
+    document.querySelectorAll("[data-timegroup]").forEach(b => b.addEventListener("click", () => {
+      fishTime = b.dataset.timegroup;
+      document.querySelectorAll("[data-timegroup]").forEach(x => x.classList.toggle("active", x === b));
+    }));
+    document.querySelectorAll("[data-position]").forEach(b => b.addEventListener("click", () => {
+      fishPosition = b.dataset.position;
+      document.querySelectorAll("[data-position]").forEach(x => x.classList.toggle("active", x === b));
+    }));
+    // Tabs click handlers
+    document.querySelectorAll("[data-fishpane-tab]").forEach(tab => {
+      tab.addEventListener("click", () => {
+        const paneKey = tab.dataset.fishpaneTab;
+        showFishPane(paneKey);
+        fishIntelContext.textContent = paneKey.replace("-", " / ");
       });
     });
 
     function showFishPane(key) {
-      ["day-shore","night-shore","day-boat","night-boat"].forEach(p => {
-        document.getElementById("pane-" + p).classList.toggle("hidden", p !== key);
-      });
-      document.querySelectorAll("[data-fishpane-tab]").forEach(tab => {
-        tab.classList.toggle("active", tab.dataset.fishpaneTab === key);
+      ["day-shore", "night-shore", "day-boat", "night-boat"].forEach(p => {
+        const pane = document.getElementById("pane-" + p);
+        const tab = document.querySelector(`[data-fishpane-tab="${p}"]`);
+        pane.classList.toggle("hidden", p !== key);
+        tab.classList.toggle("active", p === key);
       });
     }
-
-    // Fish ID
-    document.getElementById("btnIdentifyFish").addEventListener("click", async () => {
-      const fileInput = document.getElementById("fishPhotoInput");
-      const file = fileInput.files?.[0];
-      const notes = document.getElementById("fishIdNotes").value.trim();
-      if (!file) return alert("Select a photo");
-
-      const resultEl = document.getElementById("fishIdResult");
-      resultEl.textContent = "Analysing...";
-
-      try {
-        const bytes = await file.arrayBuffer();
-        const base64 = btoa(String.fromCharCode(...new Uint8Array(bytes)));
-
-        const prompt = `Identify the most likely fish species and close alternatives. Focus on Australian coastal species first if plausible. Provide:
-- 1–2 candidate common names
-- Short ID markers
-- Simple risk note (spines, teeth, ciguatera risk, protected status).
-
-Angler notes: "${notes}"`;
-
-        const body = {
-          contents: [{
-            parts: [
-              { text: prompt },
-              { inlineData: { data: base64, mimeType: file.type || "image/jpeg" } }
-            ]
-          }]
-        };
-
-        const res = await fetch(`${GEMINI_ENDPOINT}?key=${GEMINI_KEY}`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(body)
-        });
-        if (!res.ok) throw new Error(await res.text());
-        const data = await res.json();
-        resultEl.textContent = data.candidates?.[0]?.content?.parts?.[0]?.text || "No result";
-      } catch (err) {
-        resultEl.textContent = "ID failed: " + (err.message || "Check key/file");
+    document.getElementById("fishPhotoInput").addEventListener("change", e => {
+      const file = e.target.files[0];
+      const preview = document.getElementById("fishPhotoPreview");
+      preview.innerHTML = "";
+      if (file) {
+        const img = document.createElement("img");
+        img.src = URL.createObjectURL(file);
+        img.style.maxWidth = "100%";
+        img.style.maxHeight = "260px";
+        img.style.borderRadius = "10px";
+        img.style.marginTop = "8px";
+        img.style.boxShadow = "0 4px 12px rgba(0,0,0,0.4)";
+        preview.appendChild(img);
       }
     });
 
-    // Catch log (unchanged from original)
-    const CATCH_KEY = "fishing-tide-catch-log-v1";
+	document.getElementById("btnIdentifyFish").addEventListener("click", async () => {
+	  if (!requireGemini()) return;
+	  const file = document.getElementById("fishPhotoInput").files[0];
+	  const notes = document.getElementById("fishIdNotes").value.trim();
+	  if (!file) return alert("Take or select a photo first");
 
-    function loadCatchLog() {
-      try {
-        const raw = localStorage.getItem(CATCH_KEY);
-        return raw ? JSON.parse(raw) : [];
-      } catch { return []; }
-    }
+	  document.getElementById("fishIdResult").textContent = "🧠 Analysing photo... this can take 10–20 seconds";
 
-    function saveCatchLog(entries) {
-      localStorage.setItem(CATCH_KEY, JSON.stringify(entries));
-    }
+	  try {
+		const resizedBase64 = await new Promise((resolve, reject) => {
+		  const img = new Image();
+		  img.onload = () => {
+			const canvas = document.createElement("canvas");
+			const MAX_WIDTH = 1200;
+			let width = img.width;
+			let height = img.height;
+			if (width > MAX_WIDTH) {
+			  height = (MAX_WIDTH / width) * height;
+			  width = MAX_WIDTH;
+			}
+			canvas.width = width;
+			canvas.height = height;
+			const ctx = canvas.getContext("2d");
+			ctx.drawImage(img, 0, 0, width, height);
+			resolve(canvas.toDataURL("image/jpeg", 0.85).split(',')[1]);
+		  };
+		  img.onerror = reject;
+		  img.src = URL.createObjectURL(file);
+		});
 
+		const prompt = `Identify the most likely Australian saltwater fish from the photo.
+	Provide:
+	- 1–2 common names
+	- Key identifying features
+	- Any risks (venom, spines, protected status)
+
+	Angler notes: "${notes || "none"}"`;
+
+		const body = {
+		  contents: [{
+			parts: [
+			  { text: prompt },
+			  { inlineData: { data: resizedBase64, mimeType: "image/jpeg" } }
+			]
+		  }]
+		};
+
+		const res = await fetch(`${GEMINI_ENDPOINT}?key=${getGeminiKey()}`, {
+		  method: "POST",
+		  headers: { "Content-Type": "application/json" },
+		  body: JSON.stringify(body)
+		});
+
+		if (!res.ok) {
+		  const errText = await res.text();
+		  let msg = errText;
+		  if (errText.includes("overloaded") || errText.includes("429") || errText.includes("quota")) {
+			msg = "AI is busy right now — please try again in a minute";
+		  }
+		  throw new Error(msg);
+		}
+
+		const data = await res.json();
+		const result = data.candidates?.[0]?.content?.parts?.[0]?.text || "No identification returned";
+		document.getElementById("fishIdResult").textContent = result;
+	  } catch (err) {
+		document.getElementById("fishIdResult").textContent = "Failed: " + (err.message || "Unknown error");
+	  }
+	});
+
+    // Catch Log
+    function loadCatchLog() { try { return JSON.parse(localStorage.getItem(CATCH_KEY) || "[]"); } catch { return []; } }
+    function saveCatchLog(log) { localStorage.setItem(CATCH_KEY, JSON.stringify(log)); }
     function renderCatchLog() {
       const list = document.getElementById("catchLogList");
-      const entries = loadCatchLog();
+      const log = loadCatchLog();
       list.innerHTML = "";
-      document.getElementById("catchCountLabel").textContent = `${entries.length} saved`;
-      if (!entries.length) {
-        list.innerHTML = '<div class="small muted">No catches saved yet.</div>';
-        return;
-      }
-      entries.slice().reverse().forEach(c => {
+      document.getElementById("catchCountLabel").textContent = `${log.length} saved`;
+      if (!log.length) list.innerHTML = '<div class="small muted">No catches yet</div>';
+      log.slice().reverse().forEach(c => {
         const item = document.createElement("div");
         item.className = "log-item";
         item.innerHTML = `
@@ -969,82 +682,41 @@ Angler notes: "${notes}"`;
             ${c.spot ? `<span class="tag blue">${c.spot}</span>` : ""}
             ${c.photo ? `<span class="tag green">Photo</span>` : ""}
           </div>
-          ${c.photo ? `<img src="${c.photo}" alt="Catch photo">` : ""}
+          ${c.photo ? `<img src="${c.photo}" alt="Catch">` : ""}
         `;
         list.appendChild(item);
       });
     }
-
     document.getElementById("btnSaveCatch").addEventListener("click", async () => {
-      const species = document.getElementById("catchSpecies").value.trim();
-      const length = document.getElementById("catchLength").value.trim();
-      const method = document.getElementById("catchMethod").value.trim();
-      const spot = document.getElementById("catchSpot").value.trim();
-      const photoInput = document.getElementById("catchPhoto");
-      const file = photoInput.files?.[0];
-
-      let photoDataUrl = null;
-      if (file) {
-        photoDataUrl = await new Promise(resolve => {
+      const photoFile = document.getElementById("catchPhoto").files[0];
+      let photoUrl = null;
+      if (photoFile) {
+        photoUrl = await new Promise(res => {
           const reader = new FileReader();
-          reader.onload = e => resolve(e.target.result);
-          reader.readAsDataURL(file);
+          reader.onload = e => res(e.target.result);
+          reader.readAsDataURL(photoFile);
         });
       }
-
-      const entry = { species, length, method, spot, time: new Date().toISOString(), photo: photoDataUrl };
-      const entries = loadCatchLog();
-      entries.push(entry);
-      saveCatchLog(entries);
+      const entry = {
+        species: document.getElementById("catchSpecies").value.trim(),
+        length: document.getElementById("catchLength").value.trim(),
+        method: document.getElementById("catchMethod").value.trim(),
+        spot: document.getElementById("catchSpot").value.trim(),
+        photo: photoUrl,
+        time: new Date().toISOString()
+      };
+      const log = loadCatchLog();
+      log.push(entry);
+      saveCatchLog(log);
       renderCatchLog();
-
-      // Clear form
-      ["catchSpecies","catchLength","catchMethod","catchSpot","catchPhoto"].forEach(id => {
-        document.getElementById(id).value = "";
-      });
+      ["catchSpecies","catchLength","catchMethod","catchSpot","catchPhoto"].forEach(id => document.getElementById(id).value = "");
     });
-
-    function clearCatchLog() {
-      if (confirm("Clear all catches?")) {
-        localStorage.removeItem(CATCH_KEY);
-        renderCatchLog();
-      }
-    }
-
-    // Fish photo preview
-    const fishPhotoInput = document.getElementById("fishPhotoInput");
-    const fishIdResult = document.getElementById("fishIdResult"); // We'll use this area for preview + result
-    
-    fishPhotoInput.addEventListener("change", (e) => {
-      const file = e.target.files[0];
-      fishIdResult.innerHTML = ""; // Clear any previous preview or result
-    
-      if (file) {
-        const img = document.createElement("img");
-        img.src = URL.createObjectURL(file);
-        img.style.maxWidth = "100%";
-        img.style.maxHeight = "240px";
-        img.style.borderRadius = "10px";
-        img.style.marginTop = "8px";
-        img.style.display = "block";
-        img.style.boxShadow = "0 4px 12px rgba(0,0,0,0.3)";
-        
-        const caption = document.createElement("div");
-        caption.textContent = "Photo ready – tap Identify fish below";
-        caption.className = "small muted";
-        caption.style.marginTop = "6px";
-    
-        fishIdResult.appendChild(img);
-        fishIdResult.appendChild(caption);
-      } else {
-        fishIdResult.innerHTML = ""; // No photo selected
-      }
-    });
+    function clearCatchLog() { if (confirm("Delete all catches?")) { localStorage.removeItem(CATCH_KEY); renderCatchLog(); } }
 
     // Init
+    loadSavedKey();
     renderCatchLog();
+    document.getElementById("portSelect").dispatchEvent(new Event("change"));
   </script>
 </body>
 </html>
-
-
