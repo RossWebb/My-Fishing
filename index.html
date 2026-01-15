@@ -68,6 +68,48 @@
 	  color: #0b1120;
 	  font-size: 1.0em;
 	}
+	label.btn-primary {
+	  display: inline-flex;
+	  align-items: center;
+	  gap: 0.4em;
+
+	  padding: 8px 14px;
+	  border-radius: 999px;
+
+	  background: linear-gradient(135deg, #16a34a, #22c55e);
+	  color: #0b1120;
+
+	  box-shadow: 0 10px 25px rgba(34, 197, 94, 0.35);
+
+	  cursor: pointer;
+	  user-select: none;
+	  text-decoration: none;
+	  border: none;
+	  font: inherit;
+	}
+	.photo-row {
+	  display: flex;
+	  align-items: center;
+	  gap: 10px;
+	}
+	.camera-hint {
+	  display: inline-flex;
+	  align-items: center;
+	  justify-content: center;
+	  width: 2.3em;
+	  height: 1.9em;
+	  border-radius: 50%;
+	  background: #166534;
+	  color: #0b1120;
+	  font-size: 1.1em;
+	  box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+	  cursor: default;
+	}
+	.btn-camera {
+	  cursor: pointer;
+	  text-transform: none;
+	}
+
     .pill.green { display: inline-flex; padding: 3px 8px; border-radius: 999px; background: radial-gradient(circle at top left, #166534, #022c22); border: 1px solid rgba(34, 197, 94, 0.45); color: #bbf7d0; font-size: 0.7rem; text-transform: uppercase; margin-bottom: 6px; }
     .tide-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; gap: 6px; }
     .tide-time { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 0.86rem; }
@@ -129,10 +171,11 @@
 
   <div class="card">
     <div class="section-title">
-      <div><h2>Select WA Port</h2></div>
+      <div><div class="tiny-label">Step 1</div><h2>Select WA Port</h2></div>
     </div>
     <div class="row">
       <div>
+        <label for="portSelect">Tide port</label>
         <select id="portSelect">
           <option value="WA_TP023">Broome</option>
           <option value="WA_TP014">Fremantle</option>
@@ -182,6 +225,7 @@
       <thead><tr><th>Time</th><th>Height (m)</th><th>Note</th></tr></thead>
       <tbody id="tideTableBody"></tbody>
     </table>
+
   </div>
 
 	  <div id="fishIntelCard" class="card hidden">
@@ -207,13 +251,18 @@
 
   <div class="card">
     <div class="section-title"><div><div class="tiny-label">Fish ID</div><h2>Photo Identification</h2></div></div>
-    <p class="small">Take a photo — AI will help identify the species.</p>
-    <label for="fishPhotoInput">Tap to take photo (opens camera on mobile)</label>
-    <input id="fishPhotoInput" type="file" accept="image/*" capture="environment" />
+	<div class="photo-row">
+	  <label class="btn-primary btn-camera" for="fishPhotoInput">
+		<span class="btn-icon">📷</span>Camera
+	  </label>
+
+	  <input type="file" id="fishPhotoInput" accept="image/*" capture hidden>
+	</div>
+
     <div id="fishPhotoPreview" style="margin-top:8px;"></div>
     <label for="fishIdNotes">Visible features / notes (optional)</label>
     <textarea id="fishIdNotes" class="textarea-small" placeholder="Spots, colour, fin shape, size..."></textarea>
-    <button id="btnIdentifyFish" class="btn-primary" style="margin-top:8px;">🔎 Identify fish</button>
+    <button id="btnIdentifyFish" class="btn-primary" style="margin-top:8px;"> <span class="btn-icon">🔎</span> Identify fish</button>
     <div id="fishIdResult" class="small" style="margin-top:8px;"></div>
   </div>
 
@@ -293,6 +342,8 @@
 
     let fishTime = "day";
     let fishPosition = "shore";
+	let lastIdentifiedFishImage = null;
+
 
     function formatTime(dt) { return dt.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }); }
     function formatDateLocal(dt) { return dt.toLocaleDateString(undefined, { weekday: "short", year: "numeric", month: "short", day: "numeric" }); }
@@ -636,7 +687,9 @@
 			canvas.height = height;
 			const ctx = canvas.getContext("2d");
 			ctx.drawImage(img, 0, 0, width, height);
-			resolve(canvas.toDataURL("image/jpeg", 0.85).split(',')[1]);
+			const base64 = canvas.toDataURL("image/jpeg", 0.85).split(',')[1];
+			lastIdentifiedFishImage = base64;
+			resolve(base64);
 		  };
 		  img.onerror = reject;
 		  img.src = URL.createObjectURL(file);
@@ -677,6 +730,18 @@
 		const data = await res.json();
 		const result = data.candidates?.[0]?.content?.parts?.[0]?.text || "No identification returned";
 		document.getElementById("fishIdResult").textContent = result;
+
+		const reuse = document.createElement("div");
+		reuse.className = "small";
+		reuse.style.marginTop = "8px";
+		reuse.innerHTML = `
+		  <label style="cursor:pointer;">
+			<input type="checkbox" id="reuseFishPhoto" checked>
+			Use this photo when logging the catch
+		  </label>
+		`;
+		document.getElementById("fishIdResult").appendChild(reuse);
+
 	  } catch (err) {
 		document.getElementById("fishIdResult").textContent = "Failed: " + (err.message || "Unknown error");
 	  }
@@ -708,7 +773,18 @@
       });
     }
     document.getElementById("btnSaveCatch").addEventListener("click", async () => {
-      const photoFile = document.getElementById("catchPhoto").files[0];
+      let photoBase64 = null;
+
+	  const reuse = document.getElementById("reuseFishPhoto");
+	  if (reuse && reuse.checked && lastIdentifiedFishImage) {
+		photoBase64 = lastIdentifiedFishImage;
+	  } else {
+	    const file = document.getElementById("catchPhotoInput").files[0];
+	    if (file) {
+		  photoBase64 = await fileToBase64(file); // your existing logic
+		}
+	  }
+
       let photoUrl = null;
       if (photoFile) {
         photoUrl = await new Promise(res => {
@@ -740,5 +816,3 @@
   </script>
 </body>
 </html>
-
-
