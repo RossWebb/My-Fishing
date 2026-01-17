@@ -12,6 +12,16 @@
       --muted: #9ca3af;
       --border: #1f2937;
     }
+	@keyframes thinkingPulse {
+	  0%   { opacity: 0.4; }
+	  50%  { opacity: 1; }
+	  100% { opacity: 0.4; }
+	}
+
+	.thinking {
+	  animation: thinkingPulse 1.4s ease-in-out infinite;
+	}
+
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
     body { background: radial-gradient(circle at top, #1e293b 0, #020617 55%); color: var(--fg); min-height: 100vh; padding: 16px; }
     h1 { font-size: 1.4rem; margin-bottom: 8px; }
@@ -133,6 +143,15 @@
     .log-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin-top: 6px; }
     .log-item { background: rgba(15, 23, 42, 0.9); border-radius: 10px; border: 1px solid rgba(31, 41, 55, 0.95); padding: 6px; font-size: 0.8rem; display: flex; flex-direction: column; gap: 3px; }
     .log-item img { width: 100%; border-radius: 8px; margin-top: 4px; object-fit: cover; max-height: 120px; }
+	.log-item img { 
+	  width: 100%; 
+	  height: 120px; 
+	  object-fit: cover; 
+	  object-position: center center; 
+	  border-radius: 8px; 
+	  margin-top: 4px;
+	}
+
     .tag { font-size: 0.7rem; padding: 2px 7px; border-radius: 999px; border: 1px solid rgba(75, 85, 99, 0.9); color: #e5e7eb; }
     .tag.green { border-color: rgba(34, 197, 94, 0.8); color: #bbf7d0; }
     .tag.blue { border-color: rgba(59, 130, 246, 0.8); color: #bfdbfe; }
@@ -236,6 +255,8 @@
 	</div>
 
       <span id="fishIntelContext" class="small muted"></span>
+	  <div id="fishIntelOutput" class="small muted thinking hidden" style="text-align:center; padding:20px;">🧠 Thinking, please wait…</div>
+
     </div>
     <div class="tabs">
       <div class="tab active" data-fishpane-tab="day-shore">Day shore</div>
@@ -272,6 +293,9 @@
       <button class="btn-ghost btn-sm" onclick="clearCatchLog()">🧹 Clear all</button>
     </div>
     <div class="row">
+      <div><label for="catchPhoto">Photo</label><input id="catchPhoto" type="file" accept="image/*" capture="environment" /></div>
+    </div>	
+    <div class="row">
       <div><label for="catchSpecies">Species</label><input id="catchSpecies" type="text" /></div>
       <div><label for="catchLength">Length (cm)</label><input id="catchLength" type="number" step="0.1" /></div>
     </div>
@@ -280,9 +304,6 @@
     </div>
     <div class="row">
       <div><label for="catchSpot">Spot (optional)</label><input id="catchSpot" type="text" /></div>
-    </div>
-    <div class="row">
-      <div><label for="catchPhoto">Photo</label><input id="catchPhoto" type="file" accept="image/*" capture="environment" /></div>
     </div>
     <button id="btnSaveCatch" class="btn-primary" style="margin-top:8px;">📓 Save catch</button>
     <div style="height:1px;background:rgba(148,163,184,0.3);margin:16px 0;"></div>
@@ -353,11 +374,38 @@
       const gem = localStorage.getItem(KEY_GEMINI);
       if (gem) document.getElementById("geminiKey").value = gem;
     }
-    function saveKey() {
-      localStorage.setItem(KEY_GEMINI, document.getElementById("geminiKey").value.trim());
-      alert("Key saved!");
-    }
-    document.getElementById("btnSaveKeys").addEventListener("click", saveKey);
+	function saveKey() {
+	  const keyInput = document.getElementById("geminiKey");
+	  const key = keyInput.value.trim();
+
+	  if (!key) {
+		alert("Please enter a key");
+		return;
+	  }
+
+	  localStorage.setItem(KEY_GEMINI, key);
+
+	  // ✅ close the modal immediately
+	  document.getElementById("settingsModal").classList.add("hidden");
+
+	  // optional: clear field for next time
+	  keyInput.value = "";
+
+	  // optional feedback (you can remove this later)
+	  // alert("Key saved!");
+
+	  // ✅ immediately trigger fish intel
+	  if (typeof triggerFishIntel === "function") {
+		triggerFishIntel();
+	  }
+	}
+
+	document
+	  .getElementById("btnSaveKeys")
+	  .addEventListener("click", saveKey);
+	  
+console.log("Hooking up Save Key button");
+	  
 
     function getGeminiKey() { return localStorage.getItem(KEY_GEMINI) || ""; }
 
@@ -487,12 +535,9 @@
           <td><span class="badge ${later.type}">${later.type.charAt(0).toUpperCase() + later.type.slice(1)}</span> Following tide</td>
         `;
         tideTableBody.appendChild(trLater);
-
         tideCard.classList.remove("hidden");
-        // fishPromptCard.classList.remove("hidden");
+		setTimeout(() => triggerFishIntel(), 100);  // Small delay ensures DOM ready
 		
-		triggerFishIntel();
-
       } catch (err) {
         tideTableBody.innerHTML = `<tr><td colspan="3">Failed: ${err.message}</td></tr>`;
       }
@@ -517,20 +562,27 @@
       return data.candidates?.[0]?.content?.parts?.[0]?.text || "";
     }
 
-	  async function triggerFishIntel() {
-		   if (!requireGemini()) return;
-		
-	  // Show loading state
-	  document.getElementById("fishIntelCard").classList.remove("hidden");
+	async function triggerFishIntel() {
+	  if (!requireGemini()) return;
+	  
+	  // SINGLE CLEAR + LOADING BLOCK
+	  const fishIntelCard = document.getElementById("fishIntelCard");
+	  fishIntelCard.classList.remove("hidden");
+	  
+	  const fishIntelOutput = document.getElementById("fishIntelOutput");
 	  const panes = ["pane-day-shore", "pane-night-shore", "pane-day-boat", "pane-night-boat"];
-	  panes.forEach(id => document.getElementById(id).innerHTML = '<div class="small muted" style="text-align:center; padding:20px;">🧠 Thinking... please wait</div>');
+	  
+	  // Clear everything
+	  panes.forEach(id => document.getElementById(id).innerHTML = "");
+	  panes.forEach(id => document.getElementById(id).classList.add("hidden"));
+	  
+	  // Show loading
+	  fishIntelOutput.classList.remove("hidden");
+	  fishIntelOutput.classList.add("thinking");
 
 	  const port = tideLocationLabel.textContent;
 	  const month = new Date().toLocaleString(undefined, { month: "short" });
-	  const exactSpot = "general area";
-	  const targetNotes = "none";
-
-
+	  
 	  const prompt = `You are a highly experienced Western Australian saltwater fishing guide for ${port} in ${month}.
 
 	Provide practical, concise fishing tips in exactly four sections titled:
@@ -544,9 +596,6 @@
 	- Best baits or lures
 	- Where to fish (structure, depth, spot type)
 	- Tide or time preferences
-
-	Exact spot notes: "${exactSpot || "general area"}"
-	Target notes: "${targetNotes || "none"}"
 
 	End each section with: "Check current local size/bag limits before keeping fish."`;
 
@@ -562,7 +611,9 @@
 		};
 
 		// Clear loading message
-		Object.values(sections).forEach(id => document.getElementById(id).innerHTML = "");
+		fishIntelOutput.classList.remove("thinking");
+		fishIntelOutput.classList.add("hidden");
+
 
 		let current = null;
 		text.split('\n').forEach(line => {
@@ -615,12 +666,11 @@
 		if (msg.includes("overloaded") || msg.includes("429") || msg.includes("quota") || msg.includes("rate limit")) {
 		  msg = "AI is busy right now — please try again in a minute";
 		}
-		panes.forEach(id => {
-		  document.getElementById(id).innerHTML = `<div class="small" style="color:#fecaca; text-align:center; padding:20px;">${msg}</div>`;
-		});
+		fishIntelOutput.classList.remove("thinking");
+		fishIntelOutput.classList.remove("hidden");
+		fishIntelOutput.textContent = msg;
 		fishIntelCard.classList.remove("hidden");
 	  }}
-
 
     document.querySelectorAll("[data-timegroup]").forEach(b => b.addEventListener("click", () => {
       fishTime = b.dataset.timegroup;
@@ -743,6 +793,7 @@
 		document.getElementById("fishIdResult").appendChild(reuse);
 
 	  } catch (err) {
+		fishIntelOutput.classList.remove("thinking");
 		document.getElementById("fishIdResult").textContent = "Failed: " + (err.message || "Unknown error");
 	  }
 	});
@@ -772,42 +823,46 @@
         list.appendChild(item);
       });
     }
-    document.getElementById("btnSaveCatch").addEventListener("click", async () => {
-      let photoBase64 = null;
+	document.getElementById("btnSaveCatch").addEventListener("click", async () => {
+	  let photoDataUrl = null;
 
-	  const reuse = document.getElementById("reuseFishPhoto");
-	  if (reuse && reuse.checked && lastIdentifiedFishImage) {
-		photoBase64 = lastIdentifiedFishImage;
+	  // 1. Photo Logic: Check if reusing identification photo or using a new file
+	  const reuseCheckbox = document.getElementById("reuseFishPhoto");
+	  if (reuseCheckbox && reuseCheckbox.checked && lastIdentifiedFishImage) {
+		photoDataUrl = "data:image/jpeg;base64," + lastIdentifiedFishImage;
 	  } else {
-	    const file = document.getElementById("catchPhotoInput").files[0];
-	    if (file) {
-		  photoBase64 = await fileToBase64(file); // your existing logic
+		const file = document.getElementById("catchPhoto").files[0];
+		if (file) {
+		  photoDataUrl = await new Promise(resolve => {
+			const reader = new FileReader();
+			reader.onload = e => resolve(e.target.result);
+			reader.readAsDataURL(file);
+		  });
 		}
 	  }
 
-      let photoUrl = null;
-      if (photoFile) {
-        photoUrl = await new Promise(res => {
-          const reader = new FileReader();
-          reader.onload = e => res(e.target.result);
-          reader.readAsDataURL(photoFile);
-        });
-      }
-      const entry = {
-        species: document.getElementById("catchSpecies").value.trim(),
-        length: document.getElementById("catchLength").value.trim(),
-        method: document.getElementById("catchMethod").value.trim(),
-        spot: document.getElementById("catchSpot").value.trim(),
-        photo: photoUrl,
-        time: new Date().toISOString()
-      };
-      const log = loadCatchLog();
-      log.push(entry);
-      saveCatchLog(log);
-      renderCatchLog();
-      ["catchSpecies","catchLength","catchMethod","catchSpot","catchPhoto"].forEach(id => document.getElementById(id).value = "");
-    });
-    function clearCatchLog() { if (confirm("Delete all catches?")) { localStorage.removeItem(CATCH_KEY); renderCatchLog(); } }
+	  // 2. Create the entry
+	  const entry = {
+		species: document.getElementById("catchSpecies").value.trim(),
+		length: document.getElementById("catchLength").value.trim(),
+		method: document.getElementById("catchMethod").value.trim(),
+		spot: document.getElementById("catchSpot").value.trim(),
+		photo: photoDataUrl,
+		time: new Date().toISOString()
+	  };
+
+	  // 3. Save and Update
+	  const log = loadCatchLog();
+	  log.push(entry);
+	  saveCatchLog(log);
+	  renderCatchLog();
+
+	  // 4. Clear form fields
+	  ["catchSpecies", "catchLength", "catchMethod", "catchSpot", "catchPhoto"].forEach(id => {
+		document.getElementById(id).value = "";
+	  });
+	});
+
 
     // Init
     loadSavedKey();
