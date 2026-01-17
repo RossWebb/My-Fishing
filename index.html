@@ -771,9 +771,9 @@ console.log("Hooking up Save Key button");
 		if (!res.ok) {
 		  const errText = await res.text();
 		  let msg = errText;
-		  if (errText.includes("overloaded") || errText.includes("429") || errText.includes("quota")) {
-			msg = "AI is busy right now — please try again in a minute";
-		  }
+		 // if (errText.includes("overloaded") || errText.includes("429") || errText.includes("quota")) {
+		//	msg = "AI is busy right now — please try again in a minute";
+		//  }
 		  throw new Error(msg);
 		}
 
