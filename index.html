@@ -12,16 +12,14 @@
       --muted: #9ca3af;
       --border: #1f2937;
     }
-	@keyframes thinkingPulse {
-	  0%   { opacity: 0.4; }
-	  50%  { opacity: 1; }
-	  100% { opacity: 0.4; }
-	}
-
-	.thinking {
-	  animation: thinkingPulse 1.4s ease-in-out infinite;
-	}
-
+    @keyframes thinkingPulse {
+      0%   { opacity: 0.4; }
+      50%  { opacity: 1; }
+      100% { opacity: 0.4; }
+    }
+    .thinking {
+      animation: thinkingPulse 1.4s ease-in-out infinite;
+    }
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
     body { background: radial-gradient(circle at top, #1e293b 0, #020617 55%); color: var(--fg); min-height: 100vh; padding: 16px; }
     h1 { font-size: 1.4rem; margin-bottom: 8px; }
@@ -65,61 +63,53 @@
     .btn-primary { background: linear-gradient(135deg, #16a34a, #22c55e); color: #0b1120; box-shadow: 0 10px 25px rgba(34, 197, 94, 0.35); }
     .btn-ghost { background: rgba(15, 23, 42, 0.9); color: var(--fg); border: 1px solid var(--border); }
     .btn-sm { padding: 6px 10px; font-size: 0.78rem; }
-	.btn-icon {
-	  display: inline-flex;
-	  align-items: center;
-	  justify-content: center;
-	  width: 1.6em;
-	  height: 1.6em;
-	  border-radius: 30%;
-	  margin-left: -0.15em;
-	  margin-right: 0.3em;
-	  background: rgba(255,255,255,1.25);
-	  color: #0b1120;
-	  font-size: 1.0em;
-	}
-	label.btn-primary {
-	  display: inline-flex;
-	  align-items: center;
-	  gap: 0.4em;
-
-	  padding: 8px 14px;
-	  border-radius: 999px;
-
-	  background: linear-gradient(135deg, #16a34a, #22c55e);
-	  color: #0b1120;
-
-	  box-shadow: 0 10px 25px rgba(34, 197, 94, 0.35);
-
-	  cursor: pointer;
-	  user-select: none;
-	  text-decoration: none;
-	  border: none;
-	  font: inherit;
-	}
-	.photo-row {
-	  display: flex;
-	  align-items: center;
-	  gap: 10px;
-	}
-	.camera-hint {
-	  display: inline-flex;
-	  align-items: center;
-	  justify-content: center;
-	  width: 2.3em;
-	  height: 1.9em;
-	  border-radius: 50%;
-	  background: #166534;
-	  color: #0b1120;
-	  font-size: 1.1em;
-	  box-shadow: 0 1px 3px rgba(0,0,0,0.15);
-	  cursor: default;
-	}
-	label.btn-primary.btn-camera {
-	  font-size: 0.9rem;
-	  text-transform: none;
-	}
-
+    .btn-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 1.6em;
+      height: 1.6em;
+      border-radius: 30%;
+      margin-left: -0.15em;
+      margin-right: 0.3em;
+      background: rgba(255,255,255,1.25);
+      color: #0b1120;
+      font-size: 1.0em;
+    }
+    /* White icon background for primary buttons */
+    .btn-primary .btn-icon {
+      background: rgba(255,255,255,0.9);
+      color: #0b1120;
+    }
+    label.btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4em;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #16a34a, #22c55e);
+      color: #0b1120;
+      box-shadow: 0 10px 25px rgba(34, 197, 94, 0.35);
+      cursor: pointer;
+      user-select: none;
+      text-decoration: none;
+      border: none;
+      font: inherit;
+    }
+    /* Specific fix for Camera button font size */
+    label.btn-primary.btn-camera {
+      font-size: 0.9rem;
+      text-transform: none;
+    }
+    .photo-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .btn-camera {
+      cursor: pointer;
+      /* removed text-transform rule here, handled above */
+    }
     .pill.green { display: inline-flex; padding: 3px 8px; border-radius: 999px; background: radial-gradient(circle at top left, #166534, #022c22); border: 1px solid rgba(34, 197, 94, 0.45); color: #bbf7d0; font-size: 0.7rem; text-transform: uppercase; margin-bottom: 6px; }
     .tide-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; gap: 6px; }
     .tide-time { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 0.86rem; }
@@ -135,21 +125,50 @@
     .coeff-container { margin: 12px 0; }
     .coeff-bar { height: 20px; border-radius: 10px; background: linear-gradient(to right, #22c55e, #eab308, #ef4444); position: relative; }
     .coeff-marker { position: absolute; top: -8px; width: 4px; height: 36px; background: white; box-shadow: 0 0 8px black; border-radius: 2px; left: 0%; }
+    
+    /* Tabs styling */
     .tabs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 4px; margin: 6px 0; }
+    /* Extra spacing for main tabs */
+    .main-tabs { margin-bottom: 12px; }
+    
     .tab { text-align: center; padding: 6px 0; font-size: 0.78rem; border-radius: 999px; border: 1px solid rgba(31, 41, 55, 0.95); cursor: pointer; background: rgba(15, 23, 42, 0.8); color: var(--muted); user-select: none; }
     .tab.active { border-color: rgba(34, 197, 94, 0.9); background: radial-gradient(circle at top, #16a34a, #022c22); color: #e5f9ed; font-weight: 500; }
+    
     .chip-row { display: flex; flex-wrap: wrap; gap: 6px; margin: 4px 0; }
     .section-title { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 6px; }
-    .log-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin-top: 6px; }
+    
+    /* Scrollable log grid */
+    .log-grid { 
+      display: grid; 
+      grid-template-columns: repeat(2, minmax(0, 1fr)); 
+      gap: 8px; 
+      margin-top: 6px;
+      max-height: 400px; /* Scrollable height */
+      overflow-y: auto;  /* Enable scroll */
+      padding-right: 4px;
+    }
     .log-item { background: rgba(15, 23, 42, 0.9); border-radius: 10px; border: 1px solid rgba(31, 41, 55, 0.95); padding: 6px; font-size: 0.8rem; display: flex; flex-direction: column; gap: 3px; }
-    .log-item img { width: 100%; border-radius: 8px; margin-top: 4px; object-fit: cover; max-height: 120px; }
-	.log-item img { 
-	  width: 100%; 
-	  height: 120px; 
-	  object-fit: cover; 
-	  object-position: center center; 
-	  border-radius: 8px; 
-	  margin-top: 4px;
+    
+    /* Correct photo cropping */
+    .log-item img { 
+      width: 100%; 
+      height: 120px; 
+      object-fit: cover; 
+      object-position: center center; 
+      border-radius: 8px; 
+      margin-top: 4px;
+    }
+	/* New badge for the reused photo indicator */
+	.photo-badge {
+	  display: inline-block;
+	  background: #166534;
+	  color: #bbf7d0;
+	  font-size: 0.7rem;
+	  padding: 2px 6px;
+	  border-radius: 4px;
+	  margin-left: 8px;
+	  vertical-align: middle;
+	  border: 1px solid rgba(34, 197, 94, 0.45);
 	}
 
     .tag { font-size: 0.7rem; padding: 2px 7px; border-radius: 999px; border: 1px solid rgba(75, 85, 99, 0.9); color: #e5e7eb; }
@@ -163,157 +182,181 @@
     .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
     .modal-close { background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--muted); }
     @media (min-width: 768px) { body { max-width: 640px; margin: 0 auto; } }
-	#fishIntelCard .small.muted {
-		  margin-top: 0.5em;
-		}
-	#fishIntelCard .small {
-	  background: rgba(255,255,255,0.04);
-	  border: 1px solid rgba(148,163,184,0.2);
-	  border-radius: 10px;
-	  padding: 10px;
-	  margin-top: 6px;
-	}
-
+    #fishIntelCard .small.muted { margin-top: 0.5em; }
+    #fishIntelCard .small {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(148,163,184,0.2);
+      border-radius: 10px;
+      padding: 10px;
+      margin-top: 6px;
+    }
   </style>
 </head>
 <body>
+  <!-- Global Header (always visible) -->
   <div class="card">
     <div style="display:flex; justify-content:space-between; align-items:center;">
       <div>
         <div class="pill green"><span>Fisher’s Tides & Fish Guide</span></div>
-        <h1>Today’s Tides & Local Fishing</h1>
+        <h1>WA Fishing Companion</h1>
       </div>
-      <button id="btnSettings" class="btn-ghost btn-sm">⚙️ Settings</button>
+      <button id="btnSettings" class="btn-ghost btn-sm">⚙️ Keys</button>
     </div>
-    <p>Official BoM tides + AI fish intel for WA.</p>
   </div>
 
-  <div class="card">
-    <div class="section-title">
-      <div><div class="tiny-label">Step 1</div><h2>Select WA Port</h2></div>
-    </div>
-    <div class="row">
-      <div>
-        <label for="portSelect">Tide port</label>
-        <select id="portSelect">
-          <option value="WA_TP023">Broome</option>
-          <option value="WA_TP014">Fremantle</option>
-          <option value="WA_TP009">Exmouth</option>
-          <option value="WA_TP020">Port Hedland</option>
-          <option value="WA_TP018">Onslow</option>
-          <option value="WA_TP016">Karratha</option>
-          <option value="WA_TP015">Dampier</option>
-          <option value="WA_TP022">Wyndham</option>
-          <option value="WA_TP010">Geraldton</option>
-          <option value="WA_TP012">Bunbury</option>
-          <option value="WA_TP011">Esperance</option>
-          <option value="WA_TP013">Albany</option>
-        </select>
-      </div>
-    </div>
-    <button id="btnLoadTides" class="btn-primary">
-	  <span class="btn-icon">⚓</span>
-	  Load today’s tide
-	</button>
+  <!-- MAIN TABS (Switch between sections) -->
+  <div class="tabs main-tabs">
+    <div class="tab active" data-main-tab="tides">Tides</div>
+    <div class="tab" data-main-tab="intel">Intel</div>
+    <div class="tab" data-main-tab="id">ID</div>
+    <div class="tab" data-main-tab="log">Log</div>
   </div>
 
-  <div id="tideCard" class="card hidden">
-    <div class="tide-header">
-      <div><div class="tiny-label">Today’s tide • BoM official</div><h2 id="tideLocationLabel">Broome</h2></div>
-      <div style="text-align:right;">
-        <div class="tiny-label">Date</div>
-        <div class="tide-time" id="tideDateLabel"></div>
-        <div class="tide-time" id="tideNowTime"></div>
+  <!-- SECTION 1: TIDES (Default visible) -->
+  <div id="pane-main-tides">
+    <div class="card">
+      <div class="section-title">
+        <div><div class="tiny-label">Step 1</div><h2>Select WA Port</h2></div>
       </div>
+      <div class="row">
+        <div>
+          <label for="portSelect">Tide port</label>
+          <select id="portSelect">
+            <option value="WA_TP023">Broome</option>
+            <option value="WA_TP014">Fremantle</option>
+            <option value="WA_TP009">Exmouth</option>
+            <option value="WA_TP020">Port Hedland</option>
+            <option value="WA_TP018">Onslow</option>
+            <option value="WA_TP016">Karratha</option>
+            <option value="WA_TP015">Dampier</option>
+            <option value="WA_TP022">Wyndham</option>
+            <option value="WA_TP010">Geraldton</option>
+            <option value="WA_TP012">Bunbury</option>
+            <option value="WA_TP011">Esperance</option>
+            <option value="WA_TP013">Albany</option>
+          </select>
+        </div>
+      </div>
+      <button id="btnLoadTides" class="btn-primary">
+        <span class="btn-icon">⚓</span>
+        Load today’s tide
+      </button>
     </div>
 
-    <div class="coeff-container">
-      <div class="small muted" style="margin-bottom:4px;">
-        Tide coefficient: <strong id="coeffValue">—</strong> <span id="coeffDesc"></span>
+    <div id="tideCard" class="card hidden">
+      <div class="tide-header">
+        <div><div class="tiny-label">Today’s tide • BoM official</div><h2 id="tideLocationLabel">Broome</h2></div>
+        <div style="text-align:right;">
+          <div class="tiny-label">Date</div>
+          <div class="tide-time" id="tideDateLabel"></div>
+          <div class="tide-time" id="tideNowTime"></div>
+        </div>
       </div>
-      <div class="coeff-bar">
-        <div id="coeffMarker" class="coeff-marker hidden"></div>
+
+      <div class="coeff-container">
+        <div class="small muted" style="margin-bottom:4px;">
+          Tide coefficient: <strong id="coeffValue">—</strong> <span id="coeffDesc"></span>
+        </div>
+        <div class="coeff-bar">
+          <div id="coeffMarker" class="coeff-marker hidden"></div>
+        </div>
+        <div class="small muted" style="display:flex; justify-content:space-between;">
+          <span>Neap (small range)</span>
+          <span>Spring (large range)</span>
+        </div>
       </div>
-      <div class="small muted" style="display:flex; justify-content:space-between;">
-        <span>Neap (small range)</span>
-        <span>Spring (large range)</span>
-      </div>
+
+      <table class="tide-table">
+        <thead><tr><th>Time</th><th>Height (m)</th><th>Note</th></tr></thead>
+        <tbody id="tideTableBody"></tbody>
+      </table>
     </div>
-
-    <table class="tide-table">
-      <thead><tr><th>Time</th><th>Height (m)</th><th>Note</th></tr></thead>
-      <tbody id="tideTableBody"></tbody>
-    </table>
-
   </div>
 
-	  <div id="fishIntelCard" class="card hidden">
-		<div class="section-title">
-		  <div>
-	  <h2>Fish Intel</h2>
-	  <div class="tiny-label">AI suggestion</div>
-	</div>
-
-      <span id="fishIntelContext" class="small muted"></span>
-	  <div id="fishIntelOutput" class="small muted thinking hidden" style="text-align:center; padding:20px;">🧠 Thinking, please wait…</div>
-
+  <!-- SECTION 2: FISH INTEL (Hidden by default) -->
+  <div id="pane-main-intel" class="hidden">
+    <div id="fishIntelCard" class="card hidden">
+      <div class="section-title">
+        <div>
+          <h2>Fish Intel</h2>
+          <div class="tiny-label">AI suggestion</div>
+        </div>
+        <span id="fishIntelContext" class="small muted"></span>
+        <div id="fishIntelOutput" class="small muted thinking hidden" style="text-align:center; padding:20px;">🧠 Thinking, please wait…</div>
+      </div>
+      <div class="tabs">
+        <div class="tab active" data-fishpane-tab="day-shore">Day shore</div>
+        <div class="tab" data-fishpane-tab="night-shore">Night shore</div>
+        <div class="tab" data-fishpane-tab="day-boat">Day boat</div>
+        <div class="tab" data-fishpane-tab="night-boat">Night boat</div>
+      </div>
+      <div id="pane-day-shore" class="small"></div>
+      <div id="pane-night-shore" class="small hidden"></div>
+      <div id="pane-day-boat" class="small hidden"></div>
+      <div id="pane-night-boat" class="small hidden"></div>
     </div>
-    <div class="tabs">
-      <div class="tab active" data-fishpane-tab="day-shore">Day shore</div>
-      <div class="tab" data-fishpane-tab="night-shore">Night shore</div>
-      <div class="tab" data-fishpane-tab="day-boat">Day boat</div>
-      <div class="tab" data-fishpane-tab="night-boat">Night boat</div>
+    <!-- Simple prompt if no data loaded yet -->
+    <div id="intelPlaceholder" class="card">
+      <p style="text-align:center; padding:20px;">Please load tides first to generate Intel for that location.</p>
     </div>
-    <div id="pane-day-shore" class="small"></div>
-    <div id="pane-night-shore" class="small hidden"></div>
-    <div id="pane-day-boat" class="small hidden"></div>
-    <div id="pane-night-boat" class="small hidden"></div>
   </div>
 
-  <div class="card">
-    <div class="section-title"><div><div class="tiny-label">Fish ID</div><h2>Photo Identification</h2></div></div>
-	<div class="photo-row">
-	  <label class="btn-primary btn-camera" for="fishPhotoInput">
-		<span class="btn-icon">📷</span>Catch photo
-	  </label>
+  <!-- SECTION 3: ID (Hidden by default) -->
+  <div id="pane-main-id" class="hidden">
+    <div class="card">
+      <div class="section-title"><div><div class="tiny-label">Fish ID</div><h2>Photo Identification</h2></div></div>
+      <div class="photo-row">
+        <label class="btn-primary btn-camera" for="fishPhotoInput">
+          <span class="btn-icon">📷</span>Camera
+        </label>
+        <input type="file" id="fishPhotoInput" accept="image/*" capture hidden>
+      </div>
 
-	  <input type="file" id="fishPhotoInput" accept="image/*" capture hidden>
-	</div>
-
-    <div id="fishPhotoPreview" style="margin-top:8px;"></div>
-    <label for="fishIdNotes">Visible features / notes (optional)</label>
-    <textarea id="fishIdNotes" class="textarea-small" placeholder="Spots, colour, fin shape, size..."></textarea>
-    <button id="btnIdentifyFish" class="btn-primary"> <span class="btn-icon">🔎</span>Identify fish</button>
-    <div id="fishIdResult" class="small" style="margin-top:8px;"></div>
+      <div id="fishPhotoPreview" style="margin-top:8px;"></div>
+      <label for="fishIdNotes">Visible features / notes (optional)</label>
+      <textarea id="fishIdNotes" class="textarea-small" placeholder="Spots, colour, fin shape, size..."></textarea>
+      
+      <!-- Button fix: no top margin, no space before icon -->
+      <button id="btnIdentifyFish" class="btn-primary"><span class="btn-icon">🔎</span>Identify fish</button>
+      
+      <div id="fishIdResult" class="small" style="margin-top:8px;"></div>
+    </div>
   </div>
 
-  <div class="card">
-    <div class="section-title">
-      <div><div class="tiny-label">Catch log</div><h2>Log a catch</h2></div>
-      <button class="btn-ghost btn-sm" onclick="clearCatchLog()">🧹 Clear all</button>
+  <!-- SECTION 4: LOG (Hidden by default) -->
+  <div id="pane-main-log" class="hidden">
+    <div class="card">
+      <div class="section-title">
+        <div><div class="tiny-label">Catch log</div><h2>Log a catch</h2></div>
+        <button class="btn-ghost btn-sm" onclick="clearCatchLog()">🧹 Clear all</button>
+      </div>
+      <!-- Photo moved to top -->
+      <div class="row">
+        <div><label for="catchPhoto">Photo</label><input id="catchPhoto" type="file" accept="image/*" capture="environment" /></div>
+      </div>
+      <div class="row">
+        <div><label for="catchSpecies">Species</label><input id="catchSpecies" type="text" /></div>
+        <div><label for="catchLength">Length (cm)</label><input id="catchLength" type="number" step="0.1" /></div>
+      </div>
+      <div class="row">
+        <div><label for="catchMethod">Method / bait</label><input id="catchMethod" type="text" /></div>
+      </div>
+      <div class="row">
+        <div><label for="catchSpot">Spot (optional)</label><input id="catchSpot" type="text" /></div>
+      </div>
+      <button id="btnSaveCatch" class="btn-primary" style="margin-top:8px;">
+        <span class="btn-icon">📓</span>Save catch
+      </button>
+      <div style="height:1px;background:rgba(148,163,184,0.3);margin:16px 0;"></div>
+      <div class="section-title">
+        <span class="tiny-label">Recent catches</span>
+        <span id="catchCountLabel" class="small muted">0 saved</span>
+      </div>
+      <div id="catchLogList" class="log-grid"></div>
     </div>
-    <div class="row">
-      <div><label for="catchPhoto">Photo</label><input id="catchPhoto" type="file" accept="image/*" capture="environment" /></div>
-    </div>	
-    <div class="row">
-      <div><label for="catchSpecies">Species</label><input id="catchSpecies" type="text" /></div>
-      <div><label for="catchLength">Length (cm)</label><input id="catchLength" type="number" step="0.1" /></div>
-    </div>
-    <div class="row">
-      <div><label for="catchMethod">Method / bait</label><input id="catchMethod" type="text" /></div>
-    </div>
-    <div class="row">
-      <div><label for="catchSpot">Spot (optional)</label><input id="catchSpot" type="text" /></div>
-    </div>
-    <button id="btnSaveCatch" class="btn-primary" style="margin-top:8px;"> <span class="btn-icon">📓</span> Save catch</button>
-    <div style="height:1px;background:rgba(148,163,184,0.3);margin:16px 0;"></div>
-    <div class="section-title">
-      <span class="tiny-label">Recent catches</span>
-      <span id="catchCountLabel" class="small muted">0 saved</span>
-    </div>
-    <div id="catchLogList" class="log-grid"></div>
   </div>
 
+  <!-- SETTINGS MODAL -->
   <div id="settingsModal" class="modal-overlay hidden">
     <div class="modal">
       <div class="modal-header">
@@ -357,59 +400,56 @@
     const tideLocationLabel = document.getElementById("tideLocationLabel");
     const tideDateLabel = document.getElementById("tideDateLabel");
     const tideNowTime = document.getElementById("tideNowTime");
-    const fishPromptCard = document.getElementById("fishPromptCard");
     const fishIntelCard = document.getElementById("fishIntelCard");
     const fishIntelContext = document.getElementById("fishIntelContext");
 
     let fishTime = "day";
     let fishPosition = "shore";
-	let lastIdentifiedFishImage = null;
-
+    let lastIdentifiedFishImage = null;
 
     function formatTime(dt) { return dt.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }); }
     function formatDateLocal(dt) { return dt.toLocaleDateString(undefined, { weekday: "short", year: "numeric", month: "short", day: "numeric" }); }
+
+    // --- MAIN TABS SWITCHING LOGIC ---
+    document.querySelectorAll("[data-main-tab]").forEach(tab => {
+      tab.addEventListener("click", () => {
+        const key = tab.dataset.mainTab;
+        // Toggle tabs
+        document.querySelectorAll("[data-main-tab]").forEach(t => t.classList.toggle("active", t === tab));
+        
+        // Toggle Panes
+        const panes = {
+          tides: document.getElementById("pane-main-tides"),
+          intel: document.getElementById("pane-main-intel"),
+          id: document.getElementById("pane-main-id"),
+          log: document.getElementById("pane-main-log")
+        };
+        Object.entries(panes).forEach(([name, el]) => {
+          el.classList.toggle("hidden", name !== key);
+        });
+      });
+    });
 
     // Key management
     function loadSavedKey() {
       const gem = localStorage.getItem(KEY_GEMINI);
       if (gem) document.getElementById("geminiKey").value = gem;
     }
-	function saveKey() {
-	  const keyInput = document.getElementById("geminiKey");
-	  const key = keyInput.value.trim();
-
-	  if (!key) {
-		alert("Please enter a key");
-		return;
-	  }
-
-	  localStorage.setItem(KEY_GEMINI, key);
-
-	  // ✅ close the modal immediately
-	  document.getElementById("settingsModal").classList.add("hidden");
-
-	  // optional: clear field for next time
-	  keyInput.value = "";
-
-	  // optional feedback (you can remove this later)
-	  // alert("Key saved!");
-
-	  // ✅ immediately trigger fish intel
-	  if (typeof triggerFishIntel === "function") {
-		triggerFishIntel();
-	  }
-	}
-
-	document
-	  .getElementById("btnSaveKeys")
-	  .addEventListener("click", saveKey);
-	  
-console.log("Hooking up Save Key button");
-	  
+    function saveKey() {
+      const keyInput = document.getElementById("geminiKey");
+      const key = keyInput.value.trim();
+      if (!key) { alert("Please enter a key"); return; }
+      localStorage.setItem(KEY_GEMINI, key);
+      document.getElementById("settingsModal").classList.add("hidden");
+      keyInput.value = "";
+      if (typeof triggerFishIntel === "function") {
+        triggerFishIntel();
+      }
+    }
+    document.getElementById("btnSaveKeys").addEventListener("click", saveKey);
 
     function getGeminiKey() { return localStorage.getItem(KEY_GEMINI) || ""; }
 
-    // Modal
     const modal = document.getElementById("settingsModal");
     document.getElementById("btnSettings").addEventListener("click", () => {
       loadSavedKey();
@@ -436,7 +476,6 @@ console.log("Hooking up Save Key button");
       const now = new Date();
       tideDateLabel.textContent = formatDateLocal(now);
       tideNowTime.textContent = `Now: ${formatTime(now)}`;
-
       tideTableBody.innerHTML = '<tr><td colspan="3">Loading BoM tides...</td></tr>';
 
       try {
@@ -445,30 +484,16 @@ console.log("Hooking up Save Key button");
         const res = await fetch(proxyUrl);
         if (!res.ok) throw new Error(`Proxy error ${res.status}`);
         const text = await res.text();
-
         let data;
-        try {
-          data = JSON.parse(text);
-        } catch (e) {
-          throw new Error("Invalid JSON from BoM");
-        }
+        try { data = JSON.parse(text); } catch (e) { throw new Error("Invalid JSON from BoM"); }
 
         if (!data.results || !data.results.next_high || !data.results.next_low) {
           throw new Error("No tide data returned");
         }
 
-        const nextHigh = {
-          time: new Date(data.results.next_high.time * 1000),
-          height: data.results.next_high.height,
-          type: "high"
-        };
-        const nextLow = {
-          time: new Date(data.results.next_low.time * 1000),
-          height: data.results.next_low.height,
-          type: "low"
-        };
+        const nextHigh = { time: new Date(data.results.next_high.time * 1000), height: data.results.next_high.height, type: "high" };
+        const nextLow = { time: new Date(data.results.next_low.time * 1000), height: data.results.next_low.height, type: "low" };
 
-        // Coefficient
         const range = Math.abs(nextHigh.height - nextLow.height);
         const coeff = Math.min(100, Math.round(range * 12));
         document.getElementById("coeffValue").textContent = coeff;
@@ -477,10 +502,8 @@ console.log("Hooking up Save Key button");
         marker.classList.remove("hidden");
         marker.style.left = `${coeff}%`;
 
-        // Current level interpolation
         let currentHeight = null;
         let currentNote = "Next tides shown";
-
         const nowTs = Date.now() / 1000;
         if (nextLow.time.getTime() / 1000 < nextHigh.time.getTime() / 1000) {
           if (nowTs >= nextLow.time.getTime() / 1000 && nowTs <= nextHigh.time.getTime() / 1000) {
@@ -496,60 +519,39 @@ console.log("Hooking up Save Key button");
           }
         }
 
-        tideTableBody.innerHTML = "";
-
-        // Sort upcoming tides: soonest first
         const upcomingTides = [nextHigh, nextLow];
         upcomingTides.sort((a, b) => a.time - b.time);
-
         tideTableBody.innerHTML = "";
 
-        // Current level (if available) — always at top
         if (currentHeight !== null) {
           const trNow = document.createElement("tr");
           trNow.classList.add("tide-now-row");
-          trNow.innerHTML = `
-            <td>${formatTime(now)}</td>
-            <td>${currentHeight.toFixed(2)}</td>
-            <td><span class="badge now">Now</span> Approx. level (${currentNote})</td>
-          `;
+          trNow.innerHTML = `<td>${formatTime(now)}</td><td>${currentHeight.toFixed(2)}</td><td><span class="badge now">Now</span> Approx. level (${currentNote})</td>`;
           tideTableBody.appendChild(trNow);
         }
-
-        // Soonest upcoming tide
         const soonest = upcomingTides[0];
         const trSoon = document.createElement("tr");
-        trSoon.innerHTML = `
-          <td>${formatTime(soonest.time)}</td>
-          <td>${soonest.height.toFixed(2)}</td>
-          <td><span class="badge ${soonest.type}">Next</span> ${soonest.type.charAt(0).toUpperCase() + soonest.type.slice(1)} tide</td>
-        `;
+        trSoon.innerHTML = `<td>${formatTime(soonest.time)}</td><td>${soonest.height.toFixed(2)}</td><td><span class="badge ${soonest.type}">Next</span> ${soonest.type.charAt(0).toUpperCase() + soonest.type.slice(1)} tide</td>`;
         tideTableBody.appendChild(trSoon);
 
-        // Following tide
         const later = upcomingTides[1];
         const trLater = document.createElement("tr");
-        trLater.innerHTML = `
-          <td>${formatTime(later.time)}</td>
-          <td>${later.height.toFixed(2)}</td>
-          <td><span class="badge ${later.type}">${later.type.charAt(0).toUpperCase() + later.type.slice(1)}</span> Following tide</td>
-        `;
+        trLater.innerHTML = `<td>${formatTime(later.time)}</td><td>${later.height.toFixed(2)}</td><td><span class="badge ${later.type}">${later.type.charAt(0).toUpperCase() + later.type.slice(1)}</span> Following tide</td>`;
         tideTableBody.appendChild(trLater);
+
         tideCard.classList.remove("hidden");
-		setTimeout(() => triggerFishIntel(), 100);  // Small delay ensures DOM ready
-		
+        // Trigger Fish Intel after small delay
+        setTimeout(() => triggerFishIntel(), 100);
+
       } catch (err) {
         tideTableBody.innerHTML = `<tr><td colspan="3">Failed: ${err.message}</td></tr>`;
       }
     }
-
     document.getElementById("portSelect").addEventListener("change", () => {
       tideLocationLabel.textContent = PORTS[document.getElementById("portSelect").value];
     });
-
     document.getElementById("btnLoadTides").addEventListener("click", loadTides);
 
-    // Fish Intel
     async function callGemini(parts) {
       const key = getGeminiKey();
       const res = await fetch(`${GEMINI_ENDPOINT}?key=${key}`, {
@@ -562,125 +564,93 @@ console.log("Hooking up Save Key button");
       return data.candidates?.[0]?.content?.parts?.[0]?.text || "";
     }
 
-	async function triggerFishIntel() {
-	  if (!requireGemini()) return;
-	  
-	  // SINGLE CLEAR + LOADING BLOCK
-	  const fishIntelCard = document.getElementById("fishIntelCard");
-	  fishIntelCard.classList.remove("hidden");
-	  
-	  const fishIntelOutput = document.getElementById("fishIntelOutput");
-	  const panes = ["pane-day-shore", "pane-night-shore", "pane-day-boat", "pane-night-boat"];
-	  
-	  // Clear everything
-	  panes.forEach(id => document.getElementById(id).innerHTML = "");
-	  panes.forEach(id => document.getElementById(id).classList.add("hidden"));
-	  
-	  // Show loading
-	  fishIntelOutput.classList.remove("hidden");
-	  fishIntelOutput.classList.add("thinking");
+    async function triggerFishIntel() {
+      if (!requireGemini()) return;
 
-	  const port = tideLocationLabel.textContent;
-	  const month = new Date().toLocaleString(undefined, { month: "short" });
-	  
-	  const prompt = `You are a highly experienced Western Australian saltwater fishing guide for ${port} in ${month}.
+      const fishIntelCard = document.getElementById("fishIntelCard");
+      fishIntelCard.classList.remove("hidden");
+      document.getElementById("intelPlaceholder").classList.add("hidden"); // Hide prompt
 
-	Provide practical, concise fishing tips in exactly four sections titled:
-	DAY SHORE
-	NIGHT SHORE
-	DAY BOAT
-	NIGHT BOAT
+      const fishIntelOutput = document.getElementById("fishIntelOutput");
+      const panes = ["pane-day-shore", "pane-night-shore", "pane-day-boat", "pane-night-boat"];
+      panes.forEach(id => document.getElementById(id).innerHTML = "");
+      panes.forEach(id => document.getElementById(id).classList.add("hidden"));
 
-	Each section must have 4–7 short bullet points covering:
-	- Target species active now
-	- Best baits or lures
-	- Where to fish (structure, depth, spot type)
-	- Tide or time preferences
+      fishIntelOutput.classList.remove("hidden");
+      fishIntelOutput.classList.add("thinking");
 
-	End each section with: "Check current local size/bag limits before keeping fish."`;
+      const port = tideLocationLabel.textContent;
+      const month = new Date().toLocaleString(undefined, { month: "short" });
+      const prompt = `You are a highly experienced Western Australian saltwater fishing guide for ${port} in ${month}.
+      Provide practical, concise fishing tips in exactly four sections titled:
+      DAY SHORE
+      NIGHT SHORE
+      DAY BOAT
+      NIGHT BOAT
+      Each section must have 4–7 short bullet points covering:
+      - Target species active now
+      - Best baits or lures
+      - Where to fish (structure, depth, spot type)
+      - Tide or time preferences
+      End each section with: "Check current local size/bag limits before keeping fish."`;
 
-	  try {
-		const text = await callGemini([{ text: prompt }]);
-		console.log("Raw AI response:", text);
+      try {
+        const text = await callGemini([{ text: prompt }]);
+        console.log("Raw AI response:", text);
 
-		const sections = {
-		  "DAY SHORE": "pane-day-shore",
-		  "NIGHT SHORE": "pane-night-shore",
-		  "DAY BOAT": "pane-day-boat",
-		  "NIGHT BOAT": "pane-night-boat"
-		};
+        const sections = {
+          "DAY SHORE": "pane-day-shore",
+          "NIGHT SHORE": "pane-night-shore",
+          "DAY BOAT": "pane-day-boat",
+          "NIGHT BOAT": "pane-night-boat"
+        };
 
-		// Clear loading message
-		fishIntelOutput.classList.remove("thinking");
-		fishIntelOutput.classList.add("hidden");
+        fishIntelOutput.classList.remove("thinking");
+        fishIntelOutput.classList.add("hidden");
 
+        let current = null;
+        text.split('\n').forEach(line => {
+          const trimmed = line.replace(/\r/g, "").trim().replace(/^#{1,6}\s*/, "").replace(/^\*+\s*/, "").replace(/\*+$/, "");
+          const header = trimmed.toUpperCase().replace(/[:–—-]+$/, "");
+          if (sections[header]) {
+            current = header;
+          } else if (current && trimmed) {
+            if (/^check current local size\/bag limits/i.test(trimmed)) {
+              const note = document.createElement("div");
+              note.className = "small muted";
+              note.textContent = trimmed;
+              document.getElementById(sections[current]).appendChild(note);
+              return;
+            }
+            const html = trimmed.replace(/^[-•\d.]+\s*/, "").replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>").trim();
+            if (!html || /^[-•*]+$/.test(html)) return;
+            const div = document.createElement("div");
+            div.innerHTML = "• " + html;
+            document.getElementById(sections[current]).appendChild(div);
+          }
+        });
 
-		let current = null;
-		text.split('\n').forEach(line => {
-		  const trimmed = line
-		    .replace(/\r/g, "")              // remove CR characters
-		    .trim()
-		    .replace(/^#{1,6}\s*/, "")       // remove ### markdown headings
-		    .replace(/^\*+\s*/, "")          // remove leading markdown bullets
-		    .replace(/\*+$/, "");            // remove trailing markdown
+        if (!current) {
+          Object.values(sections).forEach(id => {
+            document.getElementById(id).innerHTML = "<div class='small muted'>AI response received but could not be parsed</div>";
+          });
+        }
 
+        fishIntelCard.classList.remove("hidden");
+        fishIntelContext.textContent = `${fishTime} / ${fishPosition}`;
+        showFishPane(`${fishTime}-${fishPosition}`);
+      } catch (err) {
+        let msg = err.message || "Unknown error";
+        if (msg.includes("overloaded") || msg.includes("429") || msg.includes("quota") || msg.includes("rate limit")) {
+          msg = "AI is busy right now — please try again in a minute";
+        }
+        fishIntelOutput.classList.remove("thinking");
+        fishIntelOutput.classList.remove("hidden");
+        fishIntelOutput.textContent = msg;
+        fishIntelCard.classList.remove("hidden");
+      }
+    }
 
-		  const header = trimmed.toUpperCase().replace(/[:–—-]+$/, "");
-			if (sections[header]) {
-			  current = header;
-			} else if (current && trimmed) {
-
-			  if (/^check current local size\/bag limits/i.test(trimmed)) {
-				const note = document.createElement("div");
-				note.className = "small muted";
-				note.textContent = trimmed;
-				document.getElementById(sections[current]).appendChild(note);
-				return;
-			  }
-
-			  const html = trimmed
-				  .replace(/^[-•\d.]+\s*/, "")
-				  .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
-				  .trim();
-
-				if (!html || /^[-•*]+$/.test(html)) return;
-
-				const div = document.createElement("div");
-				div.innerHTML = "• " + html;
-				document.getElementById(sections[current]).appendChild(div);
-			}
-		});
-		
-		if (!current) {
-		  Object.values(sections).forEach(id => {
-			document.getElementById(id).innerHTML =
-			  "<div class='small muted'>AI response received but could not be parsed</div>";
-		  });
-		}
-
-		fishIntelCard.classList.remove("hidden");
-		fishIntelContext.textContent = `${fishTime} / ${fishPosition}`;
-		showFishPane(`${fishTime}-${fishPosition}`);
-	  } catch (err) {
-		let msg = err.message || "Unknown error";
-		if (msg.includes("overloaded") || msg.includes("429") || msg.includes("quota") || msg.includes("rate limit")) {
-		  msg = "AI is busy right now — please try again in a minute";
-		}
-		fishIntelOutput.classList.remove("thinking");
-		fishIntelOutput.classList.remove("hidden");
-		fishIntelOutput.textContent = msg;
-		fishIntelCard.classList.remove("hidden");
-	  }}
-
-    document.querySelectorAll("[data-timegroup]").forEach(b => b.addEventListener("click", () => {
-      fishTime = b.dataset.timegroup;
-      document.querySelectorAll("[data-timegroup]").forEach(x => x.classList.toggle("active", x === b));
-    }));
-    document.querySelectorAll("[data-position]").forEach(b => b.addEventListener("click", () => {
-      fishPosition = b.dataset.position;
-      document.querySelectorAll("[data-position]").forEach(x => x.classList.toggle("active", x === b));
-    }));
-    // Tabs click handlers
     document.querySelectorAll("[data-fishpane-tab]").forEach(tab => {
       tab.addEventListener("click", () => {
         const paneKey = tab.dataset.fishpaneTab;
@@ -697,6 +667,7 @@ console.log("Hooking up Save Key button");
         tab.classList.toggle("active", p === key);
       });
     }
+
     document.getElementById("fishPhotoInput").addEventListener("change", e => {
       const file = e.target.files[0];
       const preview = document.getElementById("fishPhotoPreview");
@@ -713,170 +684,141 @@ console.log("Hooking up Save Key button");
       }
     });
 
-	document.getElementById("btnIdentifyFish").addEventListener("click", async () => {
-	  if (!requireGemini()) return;
-	  const file = document.getElementById("fishPhotoInput").files[0];
-	  const notes = document.getElementById("fishIdNotes").value.trim();
-	  if (!file) return alert("Take or select a photo first");
+    document.getElementById("btnIdentifyFish").addEventListener("click", async () => {
+      if (!requireGemini()) return;
+      const file = document.getElementById("fishPhotoInput").files[0];
+      const notes = document.getElementById("fishIdNotes").value.trim();
+      if (!file) return alert("Take or select a photo first");
 
-	  document.getElementById("fishIdResult").textContent = "🧠 Analysing photo... this can take 10–20 seconds";
+      document.getElementById("fishIdResult").textContent = "🧠 Analysing photo... this can take 10–20 seconds";
 
-	  try {
-		const resizedBase64 = await new Promise((resolve, reject) => {
-		  const img = new Image();
-		  img.onload = () => {
-			const canvas = document.createElement("canvas");
-			const MAX_WIDTH = 1200;
-			let width = img.width;
-			let height = img.height;
-			if (width > MAX_WIDTH) {
-			  height = (MAX_WIDTH / width) * height;
-			  width = MAX_WIDTH;
-			}
-			canvas.width = width;
-			canvas.height = height;
-			const ctx = canvas.getContext("2d");
-			ctx.drawImage(img, 0, 0, width, height);
-			const base64 = canvas.toDataURL("image/jpeg", 0.85).split(',')[1];
-			lastIdentifiedFishImage = base64;
-			resolve(base64);
-		  };
-		  img.onerror = reject;
-		  img.src = URL.createObjectURL(file);
-		});
+      try {
+        const resizedBase64 = await new Promise((resolve, reject) => {
+          const img = new Image();
+          img.onload = () => {
+            const canvas = document.createElement("canvas");
+            const MAX_WIDTH = 1200;
+            let width = img.width;
+            let height = img.height;
+            if (width > MAX_WIDTH) { height = (MAX_WIDTH / width) * height; width = MAX_WIDTH; }
+            canvas.width = width; canvas.height = height;
+            const ctx = canvas.getContext("2d");
+            ctx.drawImage(img, 0, 0, width, height);
+            const base64 = canvas.toDataURL("image/jpeg", 0.85).split(',')[1];
+            lastIdentifiedFishImage = base64;
+            resolve(base64);
+          };
+          img.onerror = reject;
+          img.src = URL.createObjectURL(file);
+        });
 
-		const prompt = `Identify the most likely Australian saltwater fish from the photo.
-	Provide:
-	- 1–2 common names
-	- Key identifying features
-	- Any risks (venom, spines, protected status)
+        const prompt = `Identify the most likely Australian saltwater fish from the photo. Provide: - 1–2 common names - Key identifying features - Any risks (venom, spines, protected status) Angler notes: "${notes || "none"}"`;
+        const body = { contents: [{ parts: [{ text: prompt }, { inlineData: { data: resizedBase64, mimeType: "image/jpeg" } }] }] };
 
-	Angler notes: "${notes || "none"}"`;
+        const res = await fetch(`${GEMINI_ENDPOINT}?key=${getGeminiKey()}`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
+        if (!res.ok) {
+           const errText = await res.text();
+           throw new Error(errText); // Error pass-through
+        }
 
-		const body = {
-		  contents: [{
-			parts: [
-			  { text: prompt },
-			  { inlineData: { data: resizedBase64, mimeType: "image/jpeg" } }
-			]
-		  }]
-		};
+        const data = await res.json();
+        const result = data.candidates?.[0]?.content?.parts?.[0]?.text || "No identification returned";
+        document.getElementById("fishIdResult").textContent = result;
 
-		const res = await fetch(`${GEMINI_ENDPOINT}?key=${getGeminiKey()}`, {
-		  method: "POST",
-		  headers: { "Content-Type": "application/json" },
-		  body: JSON.stringify(body)
-		});
+        const reuse = document.createElement("div");
+        reuse.className = "small";
+        reuse.style.marginTop = "8px";
+        reuse.innerHTML = `<label style="cursor:pointer;"><input type="checkbox" id="reuseFishPhoto" checked> Use this photo when logging the catch</label>`;
+        document.getElementById("fishIdResult").appendChild(reuse);
+		
+		// Show indicator on the Log tab
+        const photoLabel = document.querySelector('label[for="catchPhoto"]');
+        if (photoLabel) {
+            // Remove existing badge if any
+            const existing = photoLabel.querySelector('.photo-badge');
+            if (existing) existing.remove();
+            
+            // Add new badge
+            const badge = document.createElement('span');
+            badge.className = 'photo-badge';
+            badge.textContent = 'Using ID Photo';
+            photoLabel.appendChild(badge);
+        }
 
-		if (!res.ok) {
-		  const errText = await res.text();
-		  let msg = errText;
-		 // if (errText.includes("overloaded") || errText.includes("429") || errText.includes("quota")) {
-		//	msg = "AI is busy right now — please try again in a minute";
-		//  }
-		  throw new Error(msg);
-		}
+      } catch (err) {
+        document.getElementById("fishIdResult").textContent = "Failed: " + (err.message || "Unknown error");
+      }
+    });
 
-		const data = await res.json();
-		const result = data.candidates?.[0]?.content?.parts?.[0]?.text || "No identification returned";
-		document.getElementById("fishIdResult").textContent = result;
-
-		const reuse = document.createElement("div");
-		reuse.className = "small";
-		reuse.style.marginTop = "8px";
-		reuse.innerHTML = `
-		  <label style="cursor:pointer;">
-			<input type="checkbox" id="reuseFishPhoto" checked>
-			Use this photo when logging the catch
-		  </label>
-		`;
-		document.getElementById("fishIdResult").appendChild(reuse);
-
-	  } catch (err) {
-		fishIntelOutput.classList.remove("thinking");
-		document.getElementById("fishIdResult").textContent = "Failed: " + (err.message || "Unknown error");
-	  }
-	});
-
-    // Catch Log
     function loadCatchLog() { try { return JSON.parse(localStorage.getItem(CATCH_KEY) || "[]"); } catch { return []; } }
     function saveCatchLog(log) { localStorage.setItem(CATCH_KEY, JSON.stringify(log)); }
-    function renderCatchLog() {
-      const list = document.getElementById("catchLogList");
-      const log = loadCatchLog();
-      list.innerHTML = "";
-      document.getElementById("catchCountLabel").textContent = `${log.length} saved`;
-      if (!log.length) list.innerHTML = '<div class="small muted">No catches yet</div>';
-      log.slice().reverse().forEach(c => {
-        const item = document.createElement("div");
-        item.className = "log-item";
-        item.innerHTML = `
-          <div><strong>${c.species || "Unknown"}</strong>${c.length ? ` • ${c.length} cm` : ""}</div>
-          <div class="small muted">${formatDateLocal(new Date(c.time))} • ${formatTime(new Date(c.time))}</div>
-          ${c.method ? `<div class="small">${c.method}</div>` : ""}
-          <div class="chip-row">
-            ${c.spot ? `<span class="tag blue">${c.spot}</span>` : ""}
-            ${c.photo ? `<span class="tag green">Photo</span>` : ""}
-          </div>
-          ${c.photo ? `<img src="${c.photo}" alt="Catch">` : ""}`;
-        list.appendChild(item);
-      });
-    }
-	document.getElementById("btnSaveCatch").addEventListener("click", async () => {
-	  // 1. VALIDATION CHECK
-	  const species = document.getElementById("catchSpecies").value.trim();
-	  const method = document.getElementById("catchMethod").value.trim();
-	  const spot = document.getElementById("catchSpot").value.trim();
-	  const len = document.getElementById("catchLength").value.trim();
-	  const hasPhoto = document.getElementById("catchPhoto").files[0] || (document.getElementById("reuseFishPhoto")?.checked && lastIdentifiedFishImage);
-
-	  if (!species && !method && !spot && !len && !hasPhoto) {
-		alert("Please enter at least some catch details before saving.");
-		return;
-	  }
-
-	  let photoDataUrl = null;
-
-	  // 2. Photo Logic: Check if reusing identification photo or using a new file
-	  const reuseCheckbox = document.getElementById("reuseFishPhoto");
-	  if (reuseCheckbox && reuseCheckbox.checked && lastIdentifiedFishImage) {
-		photoDataUrl = "data:image/jpeg;base64," + lastIdentifiedFishImage;
-	  } else {
-		const file = document.getElementById("catchPhoto").files[0];
-		if (file) {
-		  photoDataUrl = await new Promise(resolve => {
-			const reader = new FileReader();
-			reader.onload = e => resolve(e.target.result);
-			reader.readAsDataURL(file);
-		  });
-		}
-	  }
-
-	  // 3. Create the entry
-	  const entry = {
-		species: species, // Use the variable from Step 1
-		length: len,      // Use the variable from Step 1
-		method: method,   // Use the variable from Step 1
-		spot: spot,       // Use the variable from Step 1
-		photo: photoDataUrl,
-		time: new Date().toISOString()
-	  };
-
-
-	  // 4. Save and Update
+	function renderCatchLog() {
+	  const list = document.getElementById("catchLogList");
 	  const log = loadCatchLog();
-	  log.push(entry);
-	  saveCatchLog(log);
-	  renderCatchLog();
-
-	  // 5. Clear form fields
-	  ["catchSpecies", "catchLength", "catchMethod", "catchSpot", "catchPhoto"].forEach(id => {
-		document.getElementById(id).value = "";
+	  list.innerHTML = "";
+	  document.getElementById("catchCountLabel").textContent = `${log.length} saved`;
+	  
+	  if (!log.length) list.innerHTML = '<div class="small muted">No catches yet</div>';
+	  
+	  log.slice().reverse().forEach(c => {
+		const item = document.createElement("div");
+		item.className = "log-item";
+		
+		// Updated HTML structure for tags
+		item.innerHTML = `
+		  <div><strong>${c.species || "Unknown"}</strong>${c.length ? ` • ${c.length} cm` : ""}</div>
+		  <div class="small muted">${formatDateLocal(new Date(c.time))} • ${formatTime(new Date(c.time))}</div>
+		  
+		  <div class="chip-row">
+			${c.method ? `<span class="tag blue">${c.method}</span>` : ""}
+			${c.spot ? `<span class="tag blue">${c.spot}</span>` : ""}
+		  </div>
+		  
+		  ${c.photo ? `<img src="${c.photo}" alt="Catch">` : ""}
+		`;
+		list.appendChild(item);
 	  });
-	});
+	}
 
+    function clearCatchLog() { if (confirm("Delete all catches?")) { localStorage.removeItem(CATCH_KEY); renderCatchLog(); } }
 
-    // Init
+    document.getElementById("btnSaveCatch").addEventListener("click", async () => {
+      const species = document.getElementById("catchSpecies").value.trim();
+      const method = document.getElementById("catchMethod").value.trim();
+      const spot = document.getElementById("catchSpot").value.trim();
+      const len = document.getElementById("catchLength").value.trim();
+      const hasPhoto = document.getElementById("catchPhoto").files[0] || (document.getElementById("reuseFishPhoto")?.checked && lastIdentifiedFishImage);
+
+      if (!species && !method && !spot && !len && !hasPhoto) {
+        alert("Please enter at least some catch details before saving.");
+        return;
+      }
+
+      let photoDataUrl = null;
+      const reuseCheckbox = document.getElementById("reuseFishPhoto");
+      if (reuseCheckbox && reuseCheckbox.checked && lastIdentifiedFishImage) {
+        photoDataUrl = "data:image/jpeg;base64," + lastIdentifiedFishImage;
+      } else {
+        const file = document.getElementById("catchPhoto").files[0];
+        if (file) {
+          photoDataUrl = await new Promise(resolve => {
+            const reader = new FileReader();
+            reader.onload = e => resolve(e.target.result);
+            reader.readAsDataURL(file);
+          });
+        }
+      }
+
+      const entry = {
+        species: species, length: len, method: method, spot: spot, photo: photoDataUrl, time: new Date().toISOString()
+      };
+      const log = loadCatchLog();
+      log.push(entry);
+      saveCatchLog(log);
+      renderCatchLog();
+      ["catchSpecies", "catchLength", "catchMethod", "catchSpot", "catchPhoto"].forEach(id => document.getElementById(id).value = "");
+    });
+
     loadSavedKey();
     renderCatchLog();
     document.getElementById("portSelect").dispatchEvent(new Event("change"));
