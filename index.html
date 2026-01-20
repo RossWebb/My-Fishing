@@ -936,9 +936,13 @@
 
       let photoDataUrl = null;
       const reuseCheckbox = document.getElementById("reuseFishPhoto");
+      
+      // LOGIC FIX: Check if checkbox exists AND is checked AND we have a valid image in memory
       if (reuseCheckbox && reuseCheckbox.checked && lastIdentifiedFishImage) {
+        // Re-attach the prefix so it displays correctly in <img> tags
         photoDataUrl = "data:image/jpeg;base64," + lastIdentifiedFishImage;
       } else {
+        // Fallback to manual file upload
         const file = document.getElementById("catchPhoto").files[0];
         if (file) {
           photoDataUrl = await new Promise(resolve => {
@@ -950,7 +954,12 @@
       }
 
       const entry = {
-        species: species, length: len, method: method, spot: spot, photo: photoDataUrl, time: new Date().toISOString()
+        species: species, 
+        length: len, 
+        method: method, 
+        spot: spot, 
+        photo: photoDataUrl, // Now guaranteed to be a full Data URL or null
+        time: new Date().toISOString()
       };
       const log = loadCatchLog();
       log.push(entry);
