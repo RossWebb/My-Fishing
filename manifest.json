@@ -11,11 +11,13 @@
       "src": "Fishing app icon 192.png",
       "type": "image/png",
       "sizes": "192x192"
+      "purpose": "maskable any"
     },
     {
-      "src": "Fishing app icon 256.png",
+      "src": "Fishing app icon 512.png",
       "type": "image/png",
-      "sizes": "256x256"
+      "sizes": "512x512"
+      "purpose": "maskable any"
     }
   ]
 }
