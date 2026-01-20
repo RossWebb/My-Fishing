@@ -1,30 +1,49 @@
-# 🎣 Fisher's Tides & Fish Guide
-A lightweight, mobile-first Progressive Web App (PWA) for planning fishing trips, identifying catches, and logging prizes.
+# 🎣 WA Fishing Companion
+
+A **Progressive Web App (PWA)** for Western Australian saltwater anglers. 
+Provides **tide predictions**, **AI-powered fish intel**, **photo identification**, and **catch logging** — all wrapped in a modern, installable **dark-mode** interface.
 
 ## ✨ Features
-- **Smart Tides:** Real-time tide data (High/Low/Current Level) via StormGlass API.
-- **AI Fish Intel:** Get custom tactics based on time of day, location, and environment using Gemini 1.5 Flash.
-- **Photo ID:** Instant fish species identification via your camera.
-- **Private Catch Log:** Save your catches locally on your device (no external database needed).
-- **PWA Ready:** Install it on your home screen for offline access to your logs.
 
-## 🚀 Quick Start
-1. **Host the App:** This is a static HTML app. Simply host it on GitHub Pages.
-2. **API Keys Required:**
-   - **Gemini API:** Get a free key from [Google AI Studio](https://aistudio.google.com/).
-   - **StormGlass API:** Get a free key from [StormGlass.io](https://stormglass.io/).
-3. **Setup:**
-   - Open the app, go to **Settings**, and paste your keys.
-   - Click **Save Keys** to store them securely in your browser's local storage.
+| Feature | Description | Status |
+| :--- | :--- | :---: |
+| **🌊 BoM Tides** | Live tide data for 12 major WA ports (Broome to Albany). | ✅ |
+| **🧠 AI Fish Intel** | Generates location-specific advice for Day/Night & Shore/Boat using Google Gemini 2.5 Flash. | ✅ |
+| **📷 Fish ID** | Take a photo to identify species using AI vision analysis. | ✅ |
+| **📓 Catch Log** | Save catches locally with photos, length, and details (offline capable). | ✅ |
+| **📱 Installable** | Full PWA support — install to home screen on iOS/Android. | ✅ |
+| **🎨 Glass UI** | Modern dark mode with sticky headers and glassmorphism effects. | ✅ |
 
-## 🛠️ Built With
-- HTML5 / CSS3 (Modern Flexbox/Grid)
-- Vanilla JavaScript
-- [Google Gemini API](https://ai.google.dev/) (AI Intelligence)
-- [StormGlass API](https://stormglass.io/) (Marine Data)
+## 🚀 How to Use
+
+### 1. Installation (iOS/Android)
+This is a web app that behaves like a native app.
+1. Visit the hosted URL (e.g., `yourusername.github.io/repo-name`).
+2. **iOS (Safari):** Tap **Share** → **Add to Home Screen**.
+3. **Android (Chrome):** Tap **Menu (⋮)** → **Install App**.
+
+### 2. Setup (AI Features)
+To use **Fish Intel** and **Fish ID**, you need a free Google Gemini API key.
+1. Get a key at [aistudio.google.com](https://aistudio.google.com/app/apikey).
+2. Open the app → Tap **⚙️ Keys** (top right).
+3. Paste your key and save. (Stored locally on your device only).
+
+## 🛠️ Development / Deployment
+
+### Structure
+- `index.html`: Main app logic and UI.
+- `manifest.json`: PWA metadata (icons, colors).
+- `sw.js`: Service Worker for offline caching.
+
+### Deploying to GitHub Pages
+1. Push code to `main` branch.
+2. Go to **Settings** → **Pages**.
+3. Set **Source** to `Deploy from a branch` → `main` / `(root)`.
+4. Your live URL will appear at the top.
 
 ## 🔒 Privacy
-All catch data and API keys are stored in your browser's `localStorage`. No data is sent to a central server, keeping your secret fishing spots safe!
+- **API Key:** Stored in your browser's `localStorage`. Never sent to any server other than Google's API.
+- **Photos/Logs:** Stored locally on your device.
 
 ---
-*Tight lines and happy fishing!*
+*Built for WA Anglers.* 🐟
