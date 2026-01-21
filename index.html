@@ -898,79 +898,127 @@
 	  list.innerHTML = "";
 	  document.getElementById("catchCountLabel").textContent = `${log.length} saved`;
 	  
-	  if (!log.length) list.innerHTML = '<div class="small muted">No catches yet</div>';
+	  if (!log.length) {
+		list.innerHTML = '<div class="small muted">No catches yet</div>';
+		return;
+	  }
 	  
 	  log.slice().reverse().forEach(c => {
 		const item = document.createElement("div");
 		item.className = "log-item";
 		
-		// Updated HTML structure for tags
-		item.innerHTML = `
-		  <div><strong>${c.species || "Unknown"}</strong>${c.length ? ` • ${c.length} cm` : ""}</div>
-		  <div class="small muted">${formatDateLocal(new Date(c.time))} • ${formatTime(new Date(c.time))}</div>
-		  
-		  <div class="chip-row">
-			${c.method ? `<span class="tag blue">${c.method}</span>` : ""}
-			${c.spot ? `<span class="tag blue">${c.spot}</span>` : ""}
+		// Create the HTML structure
+		let contentHtml = `
+		  <div style="margin-bottom:4px;">
+			<strong style="color:var(--accent);">${c.species || "Unknown Species"}</strong>
+			${c.length ? `<span class="small muted"> • ${c.length} cm</span>` : ""}
 		  </div>
-		  
-		  ${c.photo ? `<img src="${c.photo}" alt="Catch">` : ""}
+		  <div class="small muted" style="font-size:0.7rem; margin-bottom:6px;">
+			${formatDateLocal(new Date(c.time))} • ${formatTime(new Date(c.time))}
+		  </div>
 		`;
+
+		// Only add the tags row if there is data
+		if (c.method || c.spot) {
+		  contentHtml += `
+			<div class="chip-row" style="margin-bottom:8px;">
+			  ${c.method ? `<span class="tag blue">${c.method}</span>` : ""}
+			  ${c.spot ? `<span class="tag blue">${c.spot}</span>` : ""}
+			</div>
+		  `;
+		}
+
+		// Add the photo at the bottom if it exists
+		if (c.photo) {
+		  contentHtml += `<img src="${c.photo}" alt="Catch" style="width:100%; border-radius:8px; margin-top:4px;">`;
+		}
+
+		item.innerHTML = contentHtml;
 		list.appendChild(item);
 	  });
 	}
-
     function clearCatchLog() { if (confirm("Delete all catches?")) { localStorage.removeItem(CATCH_KEY); renderCatchLog(); } }
 
-    document.getElementById("btnSaveCatch").addEventListener("click", async () => {
-      const species = document.getElementById("catchSpecies").value.trim();
-      const method = document.getElementById("catchMethod").value.trim();
-      const spot = document.getElementById("catchSpot").value.trim();
-      const len = document.getElementById("catchLength").value.trim();
-      const hasPhoto = document.getElementById("catchPhoto").files[0] || (document.getElementById("reuseFishPhoto")?.checked && lastIdentifiedFishImage);
+	document.getElementById("btnSaveCatch").addEventListener("click", async () => {
+	  const species = document.getElementById("catchSpecies").value.trim();
+	  const method = document.getElementById("catchMethod").value.trim();
+	  const spot = document.getElementById("catchSpot").value.trim();
+	  const len = document.getElementById("catchLength").value.trim();
+	  
+	  // FIXED PHOTO CHECK: Check both the input AND the AI reuse checkbox
+	  const fileInput = document.getElementById("catchPhoto");
+	  const reuseCheckbox = document.getElementById("reuseFishPhoto");
+	  const hasPhoto = (fileInput.files && fileInput.files[0]) || (reuseCheckbox && reuseCheckbox.checked && lastIdentifiedFishImage);
 
-      if (!species && !method && !spot && !len && !hasPhoto) {
-        alert("Please enter at least some catch details before saving.");
-        return;
-      }
+	  if (!species && !method && !spot && !len && !hasPhoto) {
+		alert("Please enter at least some catch details (or a photo) before saving.");
+		return;
+	  }
 
-      let photoDataUrl = null;
-      const reuseCheckbox = document.getElementById("reuseFishPhoto");
-      
-      // LOGIC FIX: Check if checkbox exists AND is checked AND we have a valid image in memory
-      if (reuseCheckbox && reuseCheckbox.checked && lastIdentifiedFishImage) {
-        // Re-attach the prefix so it displays correctly in <img> tags
-        photoDataUrl = "data:image/jpeg;base64," + lastIdentifiedFishImage;
-      } else {
-        // Fallback to manual file upload
-        const file = document.getElementById("catchPhoto").files[0];
-        if (file) {
-          photoDataUrl = await new Promise(resolve => {
-            const reader = new FileReader();
-            reader.onload = e => resolve(e.target.result);
-            reader.readAsDataURL(file);
-          });
-        }
-      }
+	  let photoDataUrl = null;
+	  // Priority 1: Reuse AI Photo
+	  if (reuseCheckbox && reuseCheckbox.checked && lastIdentifiedFishImage) {
+		photoDataUrl = "data:image/jpeg;base64," + lastIdentifiedFishImage;
+	  } 
+	  // Priority 2: Uploaded File
+	  else if (fileInput.files && fileInput.files[0]) {
+		photoDataUrl = await new Promise(resolve => {
+		  const reader = new FileReader();
+		  reader.onload = e => resolve(e.target.result);
+		  reader.readAsDataURL(fileInput.files[0]);
+		});
+	  }
 
-      const entry = {
-        species: species, 
-        length: len, 
-        method: method, 
-        spot: spot, 
-        photo: photoDataUrl, // Now guaranteed to be a full Data URL or null
-        time: new Date().toISOString()
-      };
-      const log = loadCatchLog();
-      log.push(entry);
-      saveCatchLog(log);
-      renderCatchLog();
-      ["catchSpecies", "catchLength", "catchMethod", "catchSpot", "catchPhoto"].forEach(id => document.getElementById(id).value = "");
-    });
+	  const entry = {
+		species: species || "Unknown Species", // Fallback if name is empty
+		length: len,
+		method: method,
+		spot: spot,
+		photo: photoDataUrl,
+		time: new Date().toISOString()
+	  };
+
+	  const log = loadCatchLog();
+	  log.push(entry);
+	  saveCatchLog(log);
+	  renderCatchLog();
+
+	  // RESET FORM
+	  ["catchSpecies", "catchLength", "catchMethod", "catchSpot", "catchPhoto"].forEach(id => {
+		document.getElementById(id).value = "";
+	  });
+	});
 
     loadSavedKey();
     renderCatchLog();
     document.getElementById("portSelect").dispatchEvent(new Event("change"));
+    
+    // Dynamic Photo Badge Management (REPLACES your old listener)
+    document.addEventListener("change", (e) => {
+      if (e.target && e.target.id === "reuseFishPhoto") {
+        const photoLabel = document.querySelector('label[for="catchPhoto"]');
+        if (photoLabel) {
+          const badge = photoLabel.querySelector('.photo-badge');
+          
+          if (e.target.checked) {
+            // ADD badge if checked
+            if (!badge) {
+              const newBadge = document.createElement('span');
+              newBadge.className = 'photo-badge';
+              newBadge.textContent = 'Using ID Photo';
+              photoLabel.appendChild(newBadge);
+            }
+          } else {
+            // REMOVE badge if unchecked
+            if (badge) {
+              badge.remove();
+            }
+            lastIdentifiedFishImage = null;
+          }
+        }
+      }
+    });
   </script>
 </body>
 </html>
+
