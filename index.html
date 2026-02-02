@@ -606,7 +606,7 @@
       tideTableBody.innerHTML = '<tr><td colspan="3">Loading BoM tides...</td></tr>';
 
       try {
-        const bomUrl = `http://www.bom.gov.au/australia/tides/scripts/getNextTides.php?aac=${aac}&offset=false&tz=Australia/Perth&days=1`;
+        const bomUrl = `https://www.bom.gov.au/australia/tides/scripts/getNextTides.php?aac=${aac}&offset=false&tz=Australia/Perth&days=1`;
         const proxyUrl = CORS_PROXY + encodeURIComponent(bomUrl);
         const res = await fetch(proxyUrl);
         if (!res.ok) throw new Error(`Proxy error ${res.status}`);
@@ -1021,4 +1021,5 @@
   </script>
 </body>
 </html>
+
 
