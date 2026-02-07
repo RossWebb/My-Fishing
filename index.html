@@ -608,7 +608,7 @@
       try {
         const bomUrl = `https://fishing-tides-proxy.rnlwebb.workers.dev/australia/tides/scripts/getNextTides.php?aac=${aac}&offset=false&tz=Australia/Perth&days=1`;
         const proxyUrl = CORS_PROXY + encodeURIComponent(bomUrl);
-        const res = await fetch(proxyUrl);
+        const res = await fetch(bomUrl);
         if (!res.ok) throw new Error(`Proxy error ${res.status}`);
         const text = await res.text();
         let data;
@@ -1021,6 +1021,7 @@
   </script>
 </body>
 </html>
+
 
 
 
