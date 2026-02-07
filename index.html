@@ -824,7 +824,7 @@
       const notes = document.getElementById("fishIdNotes").value.trim();
       if (!file) return alert("Take or select a photo first");
 
-      document.getElementById("fishIdResult").textContent = "🧠 Analysing photo... this can take 10–20 seconds";
+      document.getElementById("fishIdResult").innerHTML = "🧠 Analysing photo... this can take 10–20 seconds";
 
       try {
         const resizedBase64 = await new Promise((resolve, reject) => {
@@ -847,13 +847,16 @@
         });
 
         // const prompt = `Identify the most likely Australian saltwater fish from the photo. Provide: - 1–2 common names - Key identifying features - Any risks (venom, spines, protected status) Angler notes: "${notes || "none"}"`;
-        const prompt = `Identify the Australian saltwater fish in this photo. 
-			Strictly follow this format and be extremely concise:		
-			**Name:** [1-2 common names]
-			**ID:** [2-3 bullet points of key features]
-			**Risks:** [Venom, spines, or protected status - or 'None']
-			**Angler Notes:** [Address: ${notes || "none"}]
-			Constraint: No introductory text, no conversational filler, and use maximum 40 words total.`;
+		const prompt = `Identify the Australian saltwater fish in this photo. 
+		Strictly follow this format and be extremely concise. Use <br> for line breaks:
+		
+		<b>Name:</b> [Common name]<br>
+		<b>ID:</b> [2 brief features, e.g., 'Blue spots, silver body']<br>
+		<b>Risks:</b> [Venom, spines, or protected - or 'None']<br>
+		<b>Angler Notes:</b> [Direct answer to: ${notes || "none"}]
+		
+		Constraint: No introductory text. Max 35 words. Use HTML tags only.`;
+		  
 		const body = { contents: [{ parts: [{ text: prompt }, { inlineData: { data: resizedBase64, mimeType: "image/jpeg" } }] }] };
 
         const res = await fetch(`${GEMINI_ENDPOINT}?key=${getGeminiKey()}`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
@@ -1028,6 +1031,7 @@
   </script>
 </body>
 </html>
+
 
 
 
